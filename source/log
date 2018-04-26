@@ -1,0 +1,33 @@
+2018-04-24 16:16:18.227 +00:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/1.1 POST http://wan-navi.azurewebsites.net/api/RunnerSave/ application/json 440
+2018-04-24 16:16:18.228 +00:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method wannavi.Api.RunnerSaveController.Post (wan-navi) with arguments ([
+  {
+    "coords": {
+      "speed": 34.2,
+      "longitude": -122.06526437,
+      "floor": 0,
+      "latitude": 37.33414928,
+      "accuracy": 5,
+      "altitude_accuracy": -1,
+      "altitude": 0,
+      "heading": 286.52
+    },
+    "extras": {
+      "route_id": 1234
+    },
+    "is_moving": true,
+    "odometer": 9340566.1,
+    "uuid": "27CC6F9D-3F0E-409B-A9A7-A06DBAB3C3B5",
+    "activity": {
+      "type": "unknown",
+      "confidence": 100
+    },
+    "battery": {
+      "level": -1,
+      "is_charging": false
+    },
+    "timestamp": "2018-04-24T16:07:13.897Z"
+  }
+]) - ModelState is Valid
+2018-04-24 16:16:18.329 +00:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value True.
+2018-04-24 16:16:18.329 +00:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action wannavi.Api.RunnerSaveController.Post (wan-navi) in 101.684ms
+2018-04-24 16:16:18.329 +00:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 101.9659ms 200 application/json; charset=utf-8
