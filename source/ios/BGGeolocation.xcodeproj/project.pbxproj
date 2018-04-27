@@ -1538,14 +1538,14 @@
 					"$(SRCROOT)/../node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation/**",
 				);
 				INFOPLIST_FILE = BGGeolocation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.transistorsoft.backgroundgeolocation.react;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tachibanawangan.wan-navi";
 				PRODUCT_NAME = BGGeolocation;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1573,14 +1573,14 @@
 					"$(SRCROOT)/../node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation/**",
 				);
 				INFOPLIST_FILE = BGGeolocation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.transistorsoft.backgroundgeolocation.react;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tachibanawangan.wan-navi";
 				PRODUCT_NAME = BGGeolocation;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

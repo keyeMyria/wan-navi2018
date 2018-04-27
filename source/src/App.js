@@ -1,31 +1,31 @@
 /**
- * Background Geolocation Demo App.
- * Transistor Software.
+ * Background Geolocation  App.
  */
 
 import React, { Component } from 'react';
-
-import { StackNavigator, NavigationActions } from 'react-navigation';
-
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import {StyleProvider} from "native-base";
-import Navigator from './Navigator';
+import RootNavigation from './navigation/RootNavigation';
 
-export default class App extends Component<{}> {
-  /**
-  * Helper method for resetting the router to Home screen
-  */
-  static goHome(navigation) {
-    navigation.dispatch(NavigationActions.reset({
-      index: 0,
-      key: null,
-      actions: [
-        NavigationActions.navigate({ routeName: 'Home', params: navigation.state.params})
-      ]
-    }));
-  }
+export default class App extends React.Component {
+  state = {
+    isLoadingComplete: false,
+  };
+
   render() {
-    return (
-      <Navigator />
-    );
+      return (
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <RootNavigation />
+        </View>
+      );
   }
+
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
