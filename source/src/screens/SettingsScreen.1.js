@@ -199,20 +199,34 @@ export default class SettingsScreen extends React.Component {
         <Content style={styles.content}>
           <Form>
             <FormItem style={styles.headerItem}>
-              <Text>省電力</Text>
+              <Text>GEOLOCATION</Text>
             </FormItem>
-
+            {this.renderTrackingModeField()}
             {this.renderPluginSettings('geolocation')}
-
+            <FormItem style={styles.headerItem}>
+              <Text>ACTIVITY RECOGNITION</Text>
+            </FormItem>
+            {this.renderPluginSettings('activity recognition')}
+            <FormItem style={styles.headerItem}>
+              <Text>HTTP &amp; PERSISTENCE</Text>
+            </FormItem>
             {this.renderPluginSettings('http')}
-            <Text style={styles.textinfo}>まとめて送信はGPS取得数が一定以上に溜まったら送信します。</Text>
-
             <FormItem style={styles.headerItem}>
               <Text>APPLICATION</Text>
             </FormItem>
             {this.renderPluginSettings('application')}
+            <FormItem style={styles.headerItem}>
+              <Text>DEBUG</Text>
+            </FormItem>
+            <FormItem inlineLabel key="email" style={styles.formItem}>
+              <Input placeholder="your@email.com" value={this.state.email} onChangeText={this.onChangeEmail.bind(this)} />
+            </FormItem>
+            {this.renderPluginSettings('debug')}
 
-            
+            <FormItem style={styles.headerItem}>
+              <Text>DEBUG</Text>
+            </FormItem>
+            {this.getGeofenceTestSettings()}
           </Form>
         </Content>
                   
@@ -220,21 +234,6 @@ export default class SettingsScreen extends React.Component {
     );
   }
 
-
-/*
-{this.renderTrackingModeField()}
-
-    <FormItem inlineLabel key="email" style={styles.formItem}>
-    <Input placeholder="your@email.com" value={this.state.email} onChangeText={this.onChangeEmail.bind(this)} />
-  </FormItem>
-*/
-
-/*
-  <FormItem style={styles.headerItem}>
-    <Text>DEBUG</Text>
-  </FormItem>
-  {this.getGeofenceTestSettings()}
-  */
 
 
 
@@ -252,8 +251,6 @@ export default class SettingsScreen extends React.Component {
     });
   }
 
-
-  //フィールド自動作成
   buildField(setting, onValueChange) {
     let field = null;
     switch(setting.inputType) {
@@ -271,7 +268,7 @@ export default class SettingsScreen extends React.Component {
         });
         field = (
           <FormItem inlineLabel key={setting.name} style={styles.formItem}>
-            <Label style={styles.formLabel}>{setting.field ? setting.field : setting.name}</Label>
+            <Label style={styles.formLabel}>{setting.name}</Label>
             <Right>
               <Picker
                 mode="dropdown"
@@ -286,7 +283,7 @@ export default class SettingsScreen extends React.Component {
       case 'toggle':
         field = (
           <FormItem inlineLabel key={setting.name} style={styles.formItem}>
-            <Label style={styles.formLabel}>{setting.field ? setting.field : setting.name}</Label>
+            <Label style={styles.formLabel}>{setting.name}</Label>
             <Right style={{paddingRight:10}}>
               <Switch value={this.state[setting.name]} onValueChange={value => {onValueChange(setting, value)}} />
             </Right>
@@ -448,8 +445,5 @@ const styles = StyleSheet.create({
   formLabel: {
     color: COLORS.light_blue,
     paddingLeft: 10
-  },
-  textinfo: {
-    color: '#660000'
-  },
+  }
 });

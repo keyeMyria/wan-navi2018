@@ -194,10 +194,12 @@ export default class HomeScreen extends React.Component {
     //
 
     BackgroundGeolocation.ready({
-      debug: true,
+      debug: false,
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
       foregroundService: true,
       autoSync: true,
+      autoSyncThreshold: 5,
+      batchSync: true,
       stopOnTerminate: false,
       url: TRACKER_HOST, // + this.state.username,
       startOnBoot: true,
