@@ -4,9 +4,7 @@ import {
   Platform,
   StyleSheet,
   View,
-  AppState,
-  Alert,
-  Linking,
+  AppState
 } from 'react-native';
 
 // For posting to tracker.transistorsoft.com
@@ -51,8 +49,6 @@ import SettingsService from './lib/SettingsService';
 //const TRACKER_HOST = 'http://localhost:5000/api/RunnerSave/';
 const TRACKER_HOST = 'https://wan-navi.azurewebsites.net/api/RunnerSave/';
 
-const TRACKER_SERVER_HOST = 'https://sugasaki.github.io/wan-navi2/wan-navi2/';
-
 
 const STATIONARY_REGION_FILL_COLOR = "rgba(200,0,0,0.2)"
 const STATIONARY_REGION_STROKE_COLOR = "rgba(200,0,0,0.2)"
@@ -71,12 +67,11 @@ if (Platform.OS == 'android') {
 }
 
 
+//import customData from './217.json';
 import Road55 from '../assets/geojson/55.json';
 import Road80 from '../assets/geojson/80.json';
 import Road173 from '../assets/geojson/173.json';
 import Road217 from '../assets/geojson/217.json';
-
-
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -89,8 +84,10 @@ export default class HomeScreen extends React.Component {
 
     this.lastMotionChangeLocation = undefined;
 
+    this.settingsService = SettingsService.getInstance();
+    this.settingsService.setUsername(this.state.username);
+
     this.state = {
-      url: TRACKER_SERVER_HOST , 
       enabled: false,
       isMoving: false,
       motionActivity: {activity: 'unknown', confidence: 100},
@@ -123,38 +120,22 @@ export default class HomeScreen extends React.Component {
       // BackgroundGeolocation state
       bgGeo: {},
 
+      navigateRoad: {},
 
-      initialRegion: {
+      region: {
         latitude: 32.74230,
         longitude: 129.869925,
-        latitudeDelta: 0.8,
-        longitudeDelta: 0.8,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121,
       },
-
-
-      navigateRoad: {
-        coordinates: Road173.features[0].geometry.coordinates.map((point, index) => {
-          return  {
-              latitude : point[1],
-              longitude : point[0]
-          }
-        })
-      }
-
+     }
 
     };
 
-    this.settingsService = SettingsService.getInstance();
-    this.settingsService.setUsername(this.state.username);
   }
 
+
   componentDidMount() {
-
-    this.setState({
-      region: this.state.initialRegion
-    });
-
-
 
     // Fetch BackgroundGeolocation current state and use that as our config object.  we use the config as persisted by the
     // Settings screen to configure the plugin.
@@ -174,7 +155,6 @@ export default class HomeScreen extends React.Component {
   }
 
   configureBackgroundGeolocation() {
-
     // Step 1:  Listen to events:
     BackgroundGeolocation.on('location', this.onLocation.bind(this));
     BackgroundGeolocation.on('motionchange', this.onMotionChange.bind(this));
@@ -192,7 +172,6 @@ export default class HomeScreen extends React.Component {
     // If you want to override any config options provided by the Settings screen, this is the place to do it, eg:
     // config.stopTimeout = 5;
     //
-
     BackgroundGeolocation.ready({
       debug: true,
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
@@ -224,12 +203,6 @@ export default class HomeScreen extends React.Component {
     }, (error) => {
       console.warn('BackgroundGeolocation error: ', error)
     });
-
-
-    this.setState({
-      url: TRACKER_SERVER_HOST + '#' + DeviceInfo.getUniqueID(), 
-    });
-
   }
   /**
   * @event location
@@ -243,7 +216,7 @@ export default class HomeScreen extends React.Component {
         odometer: (location.odometer/1000).toFixed(1)
       });
     }
-    this.setCenter(location);
+  //  this.setCenter(location);
   }
   /**
   * @event motionchange
@@ -644,10 +617,9 @@ export default class HomeScreen extends React.Component {
           showsPointsOfInterest={false}
           showsScale={true}
           showsTraffic={false}
-          toolbarEnabled={false}
+          toolbarEnabled={false}>
           initialRegion={this.state.region}
-        >
-    
+
           <MapView.Circle
             key={this.state.stationaryLocation.timestamp}
             radius={this.state.stationaryRadius}
@@ -668,7 +640,7 @@ export default class HomeScreen extends React.Component {
 
           <MapView.Polyline
             key="polyline2"
-            coordinates={ this.state.navigateRoad.coordinates }
+            coordinates={ this.state.navigateLoad.coordinates }
             geodesic={true}
             strokeColor='rgba(222,0,0, 0.6)'
             strokeWidth={3}
@@ -699,7 +671,6 @@ export default class HomeScreen extends React.Component {
           </Button>
 
           <Right>
-            <Icon name="ios-walk" style={styles.title} />
             <Switch onValueChange={() => this.onToggleEnabled()} value={this.state.enabled} />
           </Right>
         </View>
@@ -720,34 +691,35 @@ export default class HomeScreen extends React.Component {
           offsetX={10}
           offsetY={ACTION_BUTTON_OFFSET_Y + 30}>
 
-
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road55)}>
-            <Title style={styles.title}>55</Title>
+          <ActionButton.Item size={40} buttonColor="#3498db" onPress={() => this.onSelectMainMenu('settings')}>
+            <Icon name="ios-cog" style={styles.actionButtonIcon} />
           </ActionButton.Item>
 
-
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road80)}>
-            <Title style={styles.title}>80</Title>
-          </ActionButton.Item>
-
-
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road173)}>
-            <Title style={styles.title}>173</Title>
-          </ActionButton.Item>
-
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road217)}>
-            <Title style={styles.title}>217</Title>
-          </ActionButton.Item>
-
-
-          <ActionButton.Item size={40} buttonColor={COLORS.skyblue} onPress={() => this.onSelectMainMenu('sync')}>
+          <ActionButton.Item size={40} buttonColor="#3498db"onPress={() => this.onSelectMainMenu('sync')}>
             {!this.state.isSyncing ? (<Icon name="ios-cloud-upload" style={styles.actionButtonIcon} />) : (<Spinner color="#000" size="small" />)}
           </ActionButton.Item>
 
 
-          <ActionButton.Item size={40} buttonColor={COLORS.green} onPress={() => this.onClickViewServer(this)}>
-            {!this.state.isSyncing ? (<Icon name="ios-contacts" style={styles.actionButtonIcon} />) : (<Spinner color="#000" size="small" />)}
+          <ActionButton.Item size={40} buttonColor="#3498db" onPress={() => this.onClickMapMenu('hideMarkers')}>
+            <Icon name="ios-pin" style={styles.actionButtonIcon} />
           </ActionButton.Item>
+
+
+          <ActionButton.Item size={40} buttonColor="#3498db" onPress={() => this.onClickMapMenu('hideMarkers')}>
+            <Icon name="ios-walk" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+
+
+
+          <ActionButton.Item size={40} buttonColor="#3498db" onPress={() => this.onNavigateRoadChange('55')}>
+            <Title style={styles.title}>55</Title>
+          </ActionButton.Item>
+
+
+          <ActionButton.Item size={40} buttonColor="#3498db" onPress={() => this.onNavigateRoadChange('80')}>
+            <Title style={styles.title}>80</Title>
+          </ActionButton.Item>
+
 
 
         </ActionButton>
@@ -775,53 +747,24 @@ export default class HomeScreen extends React.Component {
   }
 
 
+  onNavigateRoadChange(command) {
 
-
-  onClickViewServer() {
-    Alert.alert(
-      '位置確認',
-      'Webで移動の軌跡を表示しますか',
-      [
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: () => {
-          Linking.openURL(this.state.url);
-        }
-      },
-      ],
-      { cancelable: false }
-    )
-
- }
-
-
-
-  onNavigateRoadChange(value) {
-    this.settingsService.playSound('ADD_GEOFENCE');
     this.setState({
-
-      navigateRoad: {
-        coordinates: value.features[0].geometry.coordinates.map((point, index) => {
+      navigateLoad: {
+        coordinates: load55.features[0].geometry.coordinates.map((point, index) => {
           return  {
               latitude : point[1],
               longitude : point[0]
           }
-        })
-      },
-      
-      /*
-      region: {
-        latitude: 32.74230,
-        longitude: 129.869925,
-        latitudeDelta: 1.0,
-        longitudeDelta: 1.0,
-      },
-      */
-
+      }),
     });
 
   }
 
-
+  // import load55 from '../assets/geojson/55.json';
+  // import load80 from '../assets/geojson/80.json';
+  // import load173 from '../assets/geojson/173.json';
+  // import load217 from '../assets/geojson/217.json';
 
 
   getMotionActivityIcon() {
@@ -1085,7 +1028,7 @@ var styles = StyleSheet.create({
   },
 
   footer: {
-    backgroundColor: COLORS.skyblue,
+    backgroundColor: '#3498db',
     paddingLeft: 5,
     paddingRight: 5
   },

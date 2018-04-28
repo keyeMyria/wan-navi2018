@@ -1,8 +1,8 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
-import { Icon } from 'native-base';
-
+//import { Icon } from 'native-base';
+import Icon from 'react-native-ionicons'
 
 import Colors from '../constants/Colors';
 
@@ -10,11 +10,16 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import ManualScreen from '../screens/ManualScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import CommentScreen from '../screens/CommentScreen';
+
 
 export default TabNavigator(
   {
     Home: {
       screen: HomeScreen,
+    },
+    Comment: {
+      screen: CommentScreen,
     },
     Settings: {
       screen: SettingsScreen,
@@ -31,10 +36,10 @@ export default TabNavigator(
         let iconName;
         switch (routeName) {
           case 'Home':
-            iconName = Platform.OS === 'ios' ? `ios-people${focused ? '' : '-outline'}` : 'md-map';
+            iconName = Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-map';
             break;
-          case 'Links':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
+          case 'Comment':
+            iconName = Platform.OS === 'ios' ? `ios-people${focused ? '' : '-outline'}` : 'md-people';
             break;
           case 'Manual':
             iconName = Platform.OS === 'ios' ? `ios-help${focused ? '' : '-outline'}` : 'md-help';

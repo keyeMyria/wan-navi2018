@@ -25,5 +25,11 @@ export const COLORS = {
   red: '#FE381E',
   green: '#16BE42',
   dark: '#272727',
-  polyline_color: 'rgba(0,179,253, 0.6)'//'#00B3FD'
+  polyline_color: 'rgba(0,179,253, 0.6)', //'#00B3FD',
+  skyblue: '#00BFFF',
+  custom_blue: "#3498db",
+
+  alice_blue: "#F0F8FF",
+
+
 };
