@@ -6,11 +6,14 @@ import Icon from 'react-native-ionicons'
 
 import Colors from '../constants/Colors';
 
+//import Main from '../home/Home';
+
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import ManualScreen from '../screens/ManualScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CommentScreen from '../screens/CommentScreen';
+
 
 
 export default TabNavigator(

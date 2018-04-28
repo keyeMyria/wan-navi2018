@@ -12,6 +12,7 @@ export default class App extends React.Component {
     isLoadingComplete: false,
   };
 
+  
   render() {
       return (
         <View style={styles.container}>

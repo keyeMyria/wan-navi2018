@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import {  
+  AsyncStorage,
   View,
   StyleSheet,
   Platform,
@@ -29,8 +30,6 @@ import {SOUNDS, COLORS} from './lib/config';
 
 
 
-
-
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: '設定',
@@ -39,13 +38,17 @@ export default class SettingsScreen extends React.Component {
 
   constructor(props) {
     super(props);
-
+    let navigation = props.navigation;
     this.settingsService = SettingsService.getInstance();
 
     // Default state
     this.state = {
       isDestroyingLog: false,
       isLoadingGeofences: false,
+      username: navigation.state.params.username,
+      params: navigation.state.params,
+
+
       geofence: {
         radius: '200',
         notifyOnEntry: true,
@@ -54,6 +57,7 @@ export default class SettingsScreen extends React.Component {
         loiteringDelay: '0'
       }
     };
+
   }
 
   componentDidMount() {
@@ -101,10 +105,16 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  onChangeEmail(value) {
-    this.settingsService.onChange('email', value);
-    this.setState({email: value});
+  onChangeNickname(value) {
+    if (!value) return;
+    this.setState({username: value});
+    AsyncStorage.setItem("@tachibanawanganWannavi:username", value);
+
+    //ユーザー名をサーバーに送信
+    this.settingsService.fetchAsync(value);
+    
   }
+
 
   onClickDestroyLog() {
     this.settingsService.confirm('Confirm Destroy', 'Destroy Logs?', () => {
@@ -212,7 +222,16 @@ export default class SettingsScreen extends React.Component {
             </FormItem>
             {this.renderPluginSettings('application')}
 
-            
+
+            <FormItem style={styles.headerItem}>
+              <Text>あなたの情報</Text>
+            </FormItem>
+
+            <FormItem inlineLabel key="email" style={styles.formItem}>
+              <Input placeholder="ニックネーム" value={this.state.username} onChangeText={this.onChangeNickname.bind(this)} />
+            </FormItem>
+
+
           </Form>
         </Content>
                   

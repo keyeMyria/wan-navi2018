@@ -8,6 +8,7 @@ import {
   Alert,
   Linking,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 // For posting to tracker.transistorsoft.com
 import DeviceInfo from 'react-native-device-info';
@@ -77,7 +78,6 @@ import Road173 from '../assets/geojson/173.json';
 import Road217 from '../assets/geojson/217.json';
 
 
-
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -87,15 +87,18 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    let navigation = props.navigation;
     this.lastMotionChangeLocation = undefined;
 
     this.state = {
+      username: navigation.state.params.username,
+      params: navigation.state.params,
+
       url: TRACKER_SERVER_HOST , 
       enabled: false,
       isMoving: false,
       motionActivity: {activity: 'unknown', confidence: 100},
       odometer: 0,
-      //username: props.navigation.state.params.username,
       // ActionButton state
       isMainMenuOpen: true,
       isSyncing: false,
@@ -148,13 +151,12 @@ export default class HomeScreen extends React.Component {
     this.settingsService.setUsername(this.state.username);
   }
 
+
   componentDidMount() {
 
     this.setState({
       region: this.state.initialRegion
     });
-
-
 
     // Fetch BackgroundGeolocation current state and use that as our config object.  we use the config as persisted by the
     // Settings screen to configure the plugin.
@@ -201,7 +203,7 @@ export default class HomeScreen extends React.Component {
       autoSyncThreshold: 5,
       batchSync: true,
       stopOnTerminate: false,
-      url: TRACKER_HOST, // + this.state.username,
+      url: TRACKER_HOST, 
       startOnBoot: true,
       heartbeatInterval: 60,
       enabledHeadless: true,
@@ -579,6 +581,7 @@ export default class HomeScreen extends React.Component {
       });
     });
   }
+  
 
   async destroyLocations() {
     let count = BackgroundGeolocation.getCount();
@@ -630,7 +633,9 @@ export default class HomeScreen extends React.Component {
     this.settingsService.toast(message, 'SHORT');
   }
 
+
   render() {
+
     return (
       <Container style={styles.container}>
 
@@ -701,7 +706,6 @@ export default class HomeScreen extends React.Component {
           </Button>
 
           <Right>
-            <Icon name="ios-walk" style={styles.title} />
             <Switch onValueChange={() => this.onToggleEnabled()} value={this.state.enabled} />
           </Right>
         </View>
@@ -763,6 +767,12 @@ export default class HomeScreen extends React.Component {
           <Body style={styles.footerBody}>
             <Text style={styles.status}>{this.state.motionActivity.activity}:{this.state.motionActivity.confidence}% &middot; {this.state.odometer}km</Text>
           </Body>
+
+
+          <Right style={{flex: 0.3}}>
+            <Icon name="ios-walk" style={styles.title} />
+          </Right>      
+
           <Right style={{flex: 0.3}}>
             <Button danger={this.state.isMoving}
               success={!this.state.isMoving}

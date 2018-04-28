@@ -1,6 +1,6 @@
-
 import React, { Component } from 'react';
 import {
+  Image,
   Platform,
   StyleSheet,
   AsyncStorage,
@@ -20,12 +20,15 @@ import {
 } from 'native-base';
 
 import BackgroundGeolocation from "../react-native-background-geolocation";
+import DeviceInfo from 'react-native-device-info';
 
 import prompt from 'react-native-prompt-android';
+import SettingsService from '../screens/lib/SettingsService';
+
 
 const DEFAULT_USERNAME = "react-native-anonymous";
 const TRACKER_HOST = 'http://tracker.transistorsoft.com/';
-const USERNAME_KEY = '@tachibanawangan-wannavi:username';
+const USERNAME_KEY = '@tachibanawanganWannavi:username';
 
 // Only allow alpha-numeric usernames with '-' and '_'
 const USERNAME_VALIDATOR =  /^[a-zA-Z0-9_-]*$/;
@@ -37,7 +40,7 @@ export default class Home extends Component<{}> {
     let navigation = props.navigation;
     this.state = {
       username: navigation.state.params.username,
-      url: TRACKER_HOST + navigation.state.params.username
+      //url: TRACKER_HOST + navigation.state.params.username
     }
   }
 
@@ -51,18 +54,12 @@ export default class Home extends Component<{}> {
         this.onClickEditUsername();
       });
     }
+
+
+    this.settingsService = SettingsService.getInstance();
+
   }
-  onClickNavigate(routeName) {
-    this.props.navigation.dispatch(NavigationActions.reset({
-      index: 0,
-      key: null,
-      actions: [
-        NavigationActions.navigate({routeName: routeName, params: {
-          username: this.state.username
-        }})
-      ]
-    }));
-  }
+
 
   onClickEditUsername() {
     AsyncStorage.getItem(USERNAME_KEY, (err, username) => {
@@ -75,15 +72,6 @@ export default class Home extends Component<{}> {
     });
   }
 
-  onClickViewServer() {
-     Linking.canOpenURL(this.state.url).then(supported => {
-      if (supported) {
-        Linking.openURL(this.state.url);
-      } else {
-        console.log("Don't know how to open URI: " + this.props.url);
-      }
-    });
-  }
 
   getUsername(defaultValue) {
     return new Promise((resolve, reject) => {
@@ -91,21 +79,13 @@ export default class Home extends Component<{}> {
         if (username) {
           resolve(username);
         } else {
-          prompt('Tracking Server Username', 'Please enter a unique identifier (eg: Github username) so the plugin can post loctions to tracker.transistorsoft.com/{identifier}', [{
+          prompt('ニックネーム', 'ニックネームを入力してください。この名前は後からいつでも変更できます。', [{
             text: 'OK',
             onPress: (username) => {
               username = username.replace(/\s+/, "");
               console.log('OK Pressed, username: ', username, username.length);
               if (!username.length) {
-                Alert.alert('Username required','You must enter a username.  It can be any unique alpha-numeric identifier.', [{
-                  text: 'OK', onPress: () => {
-                    reject();
-                  }
-                }],{
-                  cancelable: false
-                });
-              } else if (!USERNAME_VALIDATOR.test(username)) {
-                Alert.alert("Invalid Username", "Username must be alpha-numeric\n('-' and '_' are allowed)", [{
+                Alert.alert('ごめんね','ニックネームは必ず必要なんです.', [{
                   text: 'OK', onPress: () => {
                     reject();
                   }
@@ -130,89 +110,85 @@ export default class Home extends Component<{}> {
 
     this.setState({
       username: username,
-      url: TRACKER_HOST + username
     });
 
-    BackgroundGeolocation.setConfig({url: TRACKER_HOST + 'locations/' + username});
+    //画面遷移する
+    this._navigat(username);
+
+    //ユーザー名をサーバーに送信
+    this.settingsService.fetchAsync(username);
+    
+  }
+
+  _navigat(username) {
+    let navigation = this.props.navigation;
+    let page = "Main";
+    let params = {username: username};
+    navigation.dispatch(NavigationActions.reset({
+      index: 0,
+      key: null,
+      actions: [
+        NavigationActions.navigate({ routeName: page, params: params})
+      ]
+    }));
   }
 
   render() {
     return (
       <Container>
-        <Header style={styles.header}>
-          <Body>
-            <Title style={styles.title}>BG Geolocation</Title>
-          </Body>
-        </Header>
-        <Body style={styles.body}>
-            <H1 style={styles.h1}>湾岸ナビゲーション</H1>
-            <Button full style={styles.button} onPress={() => this.onClickNavigate('HelloWorld')}><Text>55km</Text></Button>
-            <Button full style={styles.button} onPress={() => this.onClickNavigate('SimpleMap')}><Text>80km</Text></Button>
-            <Button full style={styles.button} onPress={() => this.onClickNavigate('Advanced')}><Text>Advanced</Text></Button>
-            <Button full style={styles.button} onPress={() => this.onClickNavigate('WanNavi')}><Text>WanNavi</Text></Button>
-        </Body>
+        <View style={styles.container}>
+          <View style={styles.startedContainer}>
+            <Text style={styles.startedText}>湾なび</Text>
+          </View>
 
-        <Footer style={styles.footer}>
-            <Card style={styles.userInfo}>
-              <Text style={styles.p}>These apps will post locations to Transistor Software's demo server.  You can view your tracking in the browser by visiting:</Text>
-              <Text style={styles.url}>{this.state.url}</Text>
-
-              <Item inlineLabel disabled>
-                <Label>Username</Label>
-                <Input value={this.state.username} />
-              </Item>
-              <CardItem style={{margin: 0}}>
-                <Left>
-                  <Button danger small full onPress={this.onClickEditUsername.bind(this)}><Text>Edit username</Text></Button>
-                </Left>
-                <Right>
-                  <Button small full onPress={this.onClickViewServer.bind(this)}><Text>View server</Text></Button>
-                </Right>
-              </CardItem>
-            </Card>
-        </Footer>
+          <View style={styles.welcomeContainer}>
+             <Image
+              source={ require('../assets/images/opening.jpg')}
+              style={styles.openingImage}
+            />
+          </View>
+        
+        </View>
       </Container>
     );
   }
 }
 
+
+
+
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: '#fedd1e'
+  startedContainer: {
+    alignItems: 'center',
+    marginHorizontal: 50,
   },
-  title: {
-    color: '#000'
-  },
-  body: {
-    width: '100%',
-    justifyContent: 'center',
-    backgroundColor:'#272727'
-  },
-  h1: {
-    color: '#fff',
-    marginBottom: 20
-  },
-  p: {
-    fontSize: 12,
-    marginBottom: 5
-  },
-  url: {
-    fontSize: 12,
-    textAlign: 'center'
-  },
-  button: {
-    marginBottom: 10
+  startedText: {
+    fontSize: 17,
+    color: 'rgba(96,100,109, 1)',
+    lineHeight: 24,
+    textAlign: 'center',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#fff',
   },
-  footer: {
-    backgroundColor:"transparent",
-    height: 215
+
+  welcomeContainer: {
+    alignItems: 'center',
+    marginTop: 0,
+    marginBottom: 0,
   },
+
+  openingImage: {
+    width: 300,
+    height: 500,
+    resizeMode: 'contain',
+    marginTop: 3,
+    marginLeft: -10,
+  },
+
   userInfo: {
     padding: 10
   }

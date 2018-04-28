@@ -18,7 +18,7 @@ import prompt from 'react-native-prompt-android';
 import DeviceInfo from 'react-native-device-info';
 import BackgroundGeolocation from "../../react-native-background-geolocation";
 
-const STORAGE_KEY = "@tachibanawangan-wannavi:";
+const STORAGE_KEY = "@tachibanawanganWannavi:";
 //const TRACKER_HOST = 'http://tracker.transistorsoft.com/locations/';
 
 const GEOFENCE_RADIUS_OPTIONS = {
@@ -190,6 +190,35 @@ class SettingsService {
     this.username = username;
   }
 
+
+
+  fetchAsync  = async (username) => {
+      let sendData = {
+        userName: username,
+        userID: DeviceInfo.getUniqueID(),
+      };
+  
+      //let url = "http://localhost:5000/api/User";
+      let url = "https://wan-navi.azurewebsites.net/api/User";
+  
+      await fetch(url, {
+          method: "POST", 
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(sendData)
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+      });
+  
+  };
+  
+
+
+
+
   getUUID(callback) {
     if (this.uuid) {
       callback(this.uuid);
@@ -348,6 +377,7 @@ class SettingsService {
       this.set(setting.name, value);
     }, 500);
   }
+
 
   /**
   * Sets and persists a single Application setting
