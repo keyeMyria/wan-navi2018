@@ -18,7 +18,7 @@ import prompt from 'react-native-prompt-android';
 import DeviceInfo from 'react-native-device-info';
 import BackgroundGeolocation from "../../react-native-background-geolocation";
 
-const STORAGE_KEY = "@transistorsoft:";
+const STORAGE_KEY = "@tachibanawangan-wannavi:";
 //const TRACKER_HOST = 'http://tracker.transistorsoft.com/locations/';
 
 const GEOFENCE_RADIUS_OPTIONS = {

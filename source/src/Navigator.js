@@ -31,15 +31,15 @@ class Root extends Component<{}> {
     let navigation = this.props.navigation;
 
     // Fetch current routeName (ie: HelloWorld, SimpleMap, Advanced)
-    AsyncStorage.getItem("@transistorsoft:initialRouteName", (err, page) => {
+    AsyncStorage.getItem("@tachibanawangan-wannavi:initialRouteName", (err, page) => {
       let params = {username: undefined};
       if (!page) {
         // Default route:  Home
         page = "Home";
-        AsyncStorage.setItem("@transistorsoft:initialRouteName", page);
+        AsyncStorage.setItem("@tachibanawangan-wannavi:initialRouteName", page);
       }
       // Append username to route params.
-      AsyncStorage.getItem("@transistorsoft:username", (err, username) => {
+      AsyncStorage.getItem("@tachibanawangan-wannavi:username", (err, username) => {
         // Append username to route-params
         if (username) { params.username = username; }
         navigation.dispatch(NavigationActions.reset({
@@ -86,6 +86,6 @@ export default Navigator = StackNavigator({
     // - SimpleMap
     // - Advanced
     let routeName = transition.scene.route.routeName;
-    AsyncStorage.setItem("@transistorsoft:initialRouteName", routeName);
+    AsyncStorage.setItem("@tachibanawangan-wannavi:initialRouteName", routeName);
   }
 });

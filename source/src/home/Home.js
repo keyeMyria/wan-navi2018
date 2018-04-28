@@ -25,7 +25,7 @@ import prompt from 'react-native-prompt-android';
 
 const DEFAULT_USERNAME = "react-native-anonymous";
 const TRACKER_HOST = 'http://tracker.transistorsoft.com/';
-const USERNAME_KEY = '@transistorsoft:username';
+const USERNAME_KEY = '@tachibanawangan-wannavi:username';
 
 // Only allow alpha-numeric usernames with '-' and '_'
 const USERNAME_VALIDATOR =  /^[a-zA-Z0-9_-]*$/;
