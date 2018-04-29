@@ -26,16 +26,20 @@ class Root extends Component<{}> {
     let params = {username: undefined};
     let page = "";
 
-    //AsyncStorage.setItem(STORAGE_KEY.UserName, '');
     //AsyncStorage.setItem(STORAGE_KEY.AgreeLocation, '');
+    //AsyncStorage.setItem(STORAGE_KEY.UserName, '');
 
     AsyncStorage.multiGet([STORAGE_KEY.AgreeLocation, STORAGE_KEY.UserName], (err, store) => {
       let isAreeLocation = store[0][1];
       let userName = store[1][1];
+      if (userName) params.username = userName;
 
-      if (isAreeLocation && userName) { 
+      //Alert.alert('isAreeLocation', isAreeLocation,[{text: 'OK', onPress: () => {}},],{ cancelable: false });
+      //Alert.alert('userName', userName,[{text: 'OK', onPress: () => {}},],{ cancelable: false });
+
+      if (isAreeLocation == 'agree' && userName != '') { 
         page = "Main";
-      }else if (! isAreeLocation) {
+      }else if (isAreeLocation != 'agree' ) {
         page = "AgreeLocation";
       }else{
         page = "Home";

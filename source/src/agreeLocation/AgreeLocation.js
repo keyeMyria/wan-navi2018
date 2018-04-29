@@ -62,7 +62,8 @@ export default class AgreeLocation extends Component<{}> {
 
 
   setAgreeLocationWithNavigate() {
-    AsyncStorage.setItem(STORAGE_KEY.AgreeLocation, "true" , (err, store) => {
+    AsyncStorage.removeItem(STORAGE_KEY.AgreeLocation);
+    AsyncStorage.setItem(STORAGE_KEY.AgreeLocation, "agree" , (err, store) => {
       let page = "Home";
       //画面遷移する
       this._navigat(page);

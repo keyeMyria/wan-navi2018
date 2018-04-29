@@ -16,7 +16,6 @@ import {
   Text, H1,
   Button, Icon,
   Title,
-  Item as FormItem,
   Form, Item, Input, Label
 } from 'native-base';
 
@@ -45,38 +44,71 @@ export default class Home extends Component<{}> {
     // #stop BackroundGeolocation and remove-listeners when Home Screen is rendered.
     BackgroundGeolocation.stop();
     BackgroundGeolocation.removeListeners();
+
+    if (!this.state.username) {
+      this.getUsername().then(this.doGetUsername.bind(this)).catch(() => {
+        this.onClickEditUsername();
+      });
+    }
+
     this.settingsService = SettingsService.getInstance();
   }
 
 
-  onChangeNickname(value) {
-    if (!value) return;
-    this.setState({username: value});
+  onClickEditUsername() {
+      this.getUsername(username).then(this.doGetUsername.bind(this)).catch(() => {
+        // Revert to current username on [Cancel]
+        AsyncStorage.setItem(STORAGE_KEY.UserName, username);
+        this.onClickEditUsername();
+      });
   }
 
 
-  onClickNavigate() {
-    if (! this.state.username || this.state.username == ''){
-      Alert.alert('', 'ニックネームを入力してください',[{text: 'OK', onPress: () => {}},],{ cancelable: false });
-      return;
-    }
+  getUsername(defaultValue) {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem(STORAGE_KEY.UserName, (err, username) => {
+        if (username) {
+          resolve(username);
+        } else {
+          prompt('ニックネーム', 'ニックネームを入力してください。この名前は後からいつでも変更できます。', [{
+            text: 'OK',
+            onPress: (username) => {
+              //console.log('OK Pressed, username: ', username, username.length);
+              if (!username.length) {
+                Alert.alert('','ニックネームは必ず必要です.', [{
+                  text: 'OK', onPress: () => {
+                    reject();
+                  }
+                }],{
+                  cancelable: false
+                });
+              } else {
+                resolve(username);
+              }
+            }
+          }],{
+            type: 'plain-text',
+            defaultValue: defaultValue || ''
+          });
+        }
+      });
+    });
+  }  
 
-    AsyncStorage.setItem(STORAGE_KEY.UserName, this.state.username , (err, store) => {
-      let page = "Main";
-      
+  doGetUsername(username) {
+    AsyncStorage.setItem(STORAGE_KEY.UserName, username , (err, store) => {
       //ユーザー名をサーバーに送信
-      this.settingsService.fetchAsync(this.state.username);
+      this.settingsService.fetchAsync(username);
 
       //画面遷移する
-      this._navigat();
+      this._navigat(username);
     });
   }
 
-
-  _navigat() {
+  _navigat(username) {
     let navigation = this.props.navigation;
     let page = "Main";
-    let params = {username: this.state.username};
+    let params = {username: username};
     navigation.dispatch(NavigationActions.reset({
       index: 0,
       key: null,
@@ -86,13 +118,12 @@ export default class Home extends Component<{}> {
     }));
   }
 
-
   render() {
     return (
       <Container>
         <View style={styles.container}>
           <View style={styles.startedContainer}>
-            <Text style={styles.startedText}>橘湾岸273 スーパーマラニック</Text>
+            <Text style={styles.startedText}>湾なび</Text>
           </View>
 
           <View style={styles.welcomeContainer}>
@@ -102,65 +133,16 @@ export default class Home extends Component<{}> {
             />
           </View>
         
-          <Text style={styles.startedText}></Text>
-          <View style={styles.welcomeContainer}>
-            <Text style={styles.alert}>ニックネームを入力してください</Text>
-          <FormItem inlineLabel key="username" style={styles.formItem}>
-              <Input placeholder="ニックネーム" value={this.state.username} onChangeText={this.onChangeNickname.bind(this)} />
-          </FormItem>
-
-          </View>
-
         </View>
-
-
-        <Footer style={styles.footer}>
-            <Card style={styles.userInfo}>
-              <View style={{margin: 0}}>
-                <Right>
-                  <Button full style={styles.button} onPress={() => this.onClickNavigate()}><Text>はじめる</Text></Button>
-                </Right>
-              </View>
-            </Card>
-        </Footer>
-
-
       </Container>
     );
   }
-  
 }
 
 
 
 
 const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    marginTop: 0,
-  },
-
-  formItem: {
-    backgroundColor: "#fff",
-    minHeight: 50,
-    marginLeft: 10,
-    marginRight: 10,
-  },
-
-
-  footer: {
-    backgroundColor:"transparent",
-    height: 80
-  },
-
-  alert: {
-    color: '#ff3333',
-  },
-
   startedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
@@ -171,6 +153,13 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
   },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 0,
@@ -179,7 +168,7 @@ const styles = StyleSheet.create({
 
   openingImage: {
     width: 300,
-    height: 400,
+    height: 500,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,

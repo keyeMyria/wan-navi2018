@@ -18,7 +18,7 @@ import AgreeBody from '../agreeLocation/AgreeBody';
 
 export default class AgreeScreen extends Component<{}> {
     static navigationOptions = {
-        title: 'Links',
+        title: '利用規約',
     };
 
     componentDidMount() {
