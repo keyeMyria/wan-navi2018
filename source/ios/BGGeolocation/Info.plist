@@ -61,15 +61,17 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>CHANGEME: Location Always And When In Use Usage Description</string>
+	<string>湾なびでは位置情報を使います。常に許可を選択してください。その他を選んだ場合には正常に動作しない可能性があります。</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>CHANGEME: Location Always Usage Description</string>
+	<string>湾なびでは位置情報を使います。常に許可を選択してください。その他を選んだ場合には正常に動作しない可能性があります。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>位置情報を使います</string>
+	<string>湾なびでは位置情報を使います。常に許可を選択してください。その他を選んだ場合には正常に動作しない可能性があります。</string>
 	<key>NSMainNibFile</key>
 	<string>LaunchScreen</string>
 	<key>NSMotionUsageDescription</key>
-	<string>CHANGEME: Motion updates increase battery efficiency by intelligently toggling location-services when device is detected to be moving</string>
+	<string>湾なびでは位置情報を使います。位置情報を低電力にすることでも使えますが期待通りには動作しない可能性があります。
+	
+	</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
