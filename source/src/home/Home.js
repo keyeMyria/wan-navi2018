@@ -30,8 +30,6 @@ const DEFAULT_USERNAME = "react-native-anonymous";
 const TRACKER_HOST = 'http://tracker.transistorsoft.com/';
 const USERNAME_KEY = '@tachibanawanganWannavi:username';
 
-// Only allow alpha-numeric usernames with '-' and '_'
-const USERNAME_VALIDATOR =  /^[a-zA-Z0-9_-]*$/;
 
 export default class Home extends Component<{}> {
   constructor(props) {

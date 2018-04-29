@@ -231,7 +231,7 @@ export default class SettingsScreen extends React.Component {
               <Text>APPLICATION</Text>
             </FormItem>
             {this.renderPluginSettings('application')}
-
+            {this.renderPluginSettings('debug')}
 
             <FormItem style={styles.headerItem}>
               <Text>あなたの情報</Text>
@@ -247,7 +247,7 @@ export default class SettingsScreen extends React.Component {
             </FormItem>
 
 
-            <FormItem inlineLabel key="url" style={styles.formItem}>
+            <FormItem inlineLabel key="public_url" style={styles.formItem}>
               <Input placeholder="" value={this.state.public_url}  />
             </FormItem>
 

@@ -71,7 +71,7 @@ const PLUGIN_SETTINGS = {
     {field: '', name: 'activityRecognitionInterval', group: 'activity recognition', dataType: 'integer', inputType: 'select', values: [0, 1000, 5000, 10000, 30000], defaultValue: 10000},
     {field: '', name: 'stopTimeout', group: 'activity recognition', dataType: 'integer', inputType: 'select', values: [0, 1, 5, 10, 15], defaultValue: 1},
     // HTTP & Persistence
-//    {field: '', name:'url', group: 'http', inputType: 'text', dataType: 'string', defaultValue: 'http://your.server.com/endpoint'},
+    {field: '', name:'url', group: 'http', inputType: 'text', dataType: 'string', defaultValue: 'http://your.server.com/endpoint'},
     {field: '自動送信', name: 'autoSync', group: 'http', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: true},
     {field: 'まとめて送信', name: 'batchSync', group: 'http', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
     {field: 'まとめて送信の1度の送信数', name: 'autoSyncThreshold', group: 'http', dataType: 'integer', inputType: 'select', values: [0, 5, 10, 25, 50, 100], defaultValue: 5},
@@ -83,9 +83,9 @@ const PLUGIN_SETTINGS = {
 //    {field: '', name:'startOnBoot', group: 'application', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
 //    {field: '', name:'heartbeatInterval', group: 'application', dataType: 'integer', inputType: 'select', values: [-1, 60, (2*60), (5*60), (15*60)], defaultValue: 60},
     // Logging & Debug
-    {field: '', name:'debug', group: 'debug', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: true},
-    {field: '', name:'logLevel', group: 'debug', dataType: 'string', inputType: 'select', values: ['OFF', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'VERBOSE'], defaultValue: 'VERBOSE'},
-    {field: '', name:'logMaxDays', group: 'debug', dataType: 'integer', inputType: 'select', values: [1, 2, 3, 4, 5, 6, 7], defaultValue: 3}
+    {field: '音と通知', name:'debug', group: 'debug', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: true},
+//    {field: '', name:'logLevel', group: 'debug', dataType: 'string', inputType: 'select', values: ['OFF', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'VERBOSE'], defaultValue: 'VERBOSE'},
+//    {field: '', name:'logMaxDays', group: 'debug', dataType: 'integer', inputType: 'select', values: [1, 2, 3, 4, 5, 6, 7], defaultValue: 3}
   ],
   ios: [
     // Geolocation

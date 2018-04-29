@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
+  AsyncStorage,
   View,
   AppState,
   Alert,
@@ -49,7 +50,7 @@ import SettingsView from './SettingsView';
 import SettingsService from './lib/SettingsService';
 
 //const TRACKER_HOST = 'http://tracker.transistorsoft.com/locations/';
-//const TRACKER_HOST = 'http://localhost:5000/api/RunnerSave/';
+//cconst TRACKER_HOST = 'http://localhost:5000/api/RunnerSave/';
 const TRACKER_HOST = 'https://wan-navi.azurewebsites.net/api/RunnerSave/';
 
 const TRACKER_SERVER_HOST = 'https://sugasaki.github.io/wan-navi2/wan-navi2/';
@@ -87,14 +88,17 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
 
+
+
+    AsyncStorage.setItem("@tachibanawanganWannavi:url", TRACKER_HOST);
+
+
     let navigation = props.navigation;
     this.lastMotionChangeLocation = undefined;
 
     this.state = {
       username: navigation.state.params.username,
       params: navigation.state.params,
-
-      url: TRACKER_SERVER_HOST , 
       enabled: false,
       isMoving: false,
       motionActivity: {activity: 'unknown', confidence: 100},
@@ -158,6 +162,8 @@ export default class HomeScreen extends React.Component {
       region: this.state.initialRegion
     });
 
+
+    
     // Fetch BackgroundGeolocation current state and use that as our config object.  we use the config as persisted by the
     // Settings screen to configure the plugin.
 
@@ -231,7 +237,7 @@ export default class HomeScreen extends React.Component {
 
 
     this.setState({
-      url: TRACKER_SERVER_HOST + '#' + DeviceInfo.getUniqueID(), 
+      logUrl: TRACKER_SERVER_HOST + '#' + DeviceInfo.getUniqueID(), 
     });
 
   }
@@ -798,7 +804,7 @@ export default class HomeScreen extends React.Component {
       [
         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
         {text: 'OK', onPress: () => {
-          Linking.openURL(this.state.url);
+          Linking.openURL(this.state.logUrl);
         }
       },
       ],
