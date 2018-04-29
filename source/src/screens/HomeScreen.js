@@ -698,7 +698,6 @@ export default class HomeScreen extends React.Component {
 
         <View style={styles.mapMenu}>
           <Body>
-            <Title style={styles.title}>湾なび</Title>
           </Body>
 
           <Button info light={this.state.settings.hideMarkers} style={styles.mapMenuButton} onPress={() => this.onClickMapMenu('hideMarkers') }>
@@ -717,6 +716,31 @@ export default class HomeScreen extends React.Component {
         </View>
 
 
+        <View style={styles.mapMenuBottom}>
+          <Left style={{flex:0.3}}>
+            <Title style={styles.title}>湾なび</Title>
+          </Left>
+          <Body style={styles.footerBody}>
+            <Text style={styles.status}>{this.state.motionActivity.activity}:{this.state.motionActivity.confidence}% &middot; {this.state.odometer}km</Text>
+          </Body>
+
+
+          <Right style={{flex: 0.3}}>
+            <Icon name="ios-walk" style={styles.title} />
+          </Right>      
+
+          <Right style={{flex: 0.3}}>
+            <Button danger={this.state.isMoving}
+              success={!this.state.isMoving}
+              disabled={!this.state.enabled}
+              onPress={this.onClickChangePace.bind(this)}>
+              <Icon active name={(this.state.isMoving) ? 'pause' : 'play'} style={styles.icon}/>
+            </Button>
+          </Right>
+        </View>
+
+
+
         <ActionButton
           position="left"
           hideShadow={false}
@@ -730,7 +754,14 @@ export default class HomeScreen extends React.Component {
           buttonTextStyle={{color: "#ffffff"}}
           spacing={15}
           offsetX={10}
-          offsetY={ACTION_BUTTON_OFFSET_Y + 30}>
+          offsetY={ACTION_BUTTON_OFFSET_Y}>
+
+
+
+          <ActionButton.Item size={40} buttonColor={COLORS.skyblue} onPress={() => this.onClickGetCurrentPosition()}>
+            <Icon name="md-navigate" style={styles.actionButtonIcon} />
+            <Title style={styles.iconText}>現</Title>
+          </ActionButton.Item>
 
 
           <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road55)}>
@@ -758,7 +789,7 @@ export default class HomeScreen extends React.Component {
 
 
           <ActionButton.Item size={40} buttonColor={COLORS.green} onPress={() => this.onClickViewServer(this)}>
-            {!this.state.isSyncing ? (<Icon name="ios-contacts" style={styles.actionButtonIcon} />) : (<Spinner color="#000" size="small" />)}
+            <Icon name="ios-contacts" style={styles.actionButtonIcon} />
           </ActionButton.Item>
 
 
@@ -766,30 +797,6 @@ export default class HomeScreen extends React.Component {
 
         </ActionButton>
 
-        <Footer style={styles.footer}>
-          <Left style={{flex:0.3}}>
-            <Button info onPress={this.onClickGetCurrentPosition.bind(this)}>
-              <Icon active name="md-navigate" style={styles.icon} />
-            </Button>
-          </Left>
-          <Body style={styles.footerBody}>
-            <Text style={styles.status}>{this.state.motionActivity.activity}:{this.state.motionActivity.confidence}% &middot; {this.state.odometer}km</Text>
-          </Body>
-
-
-          <Right style={{flex: 0.3}}>
-            <Icon name="ios-walk" style={styles.title} />
-          </Right>      
-
-          <Right style={{flex: 0.3}}>
-            <Button danger={this.state.isMoving}
-              success={!this.state.isMoving}
-              disabled={!this.state.enabled}
-              onPress={this.onClickChangePace.bind(this)}>
-              <Icon active name={(this.state.isMoving) ? 'pause' : 'play'} style={styles.icon}/>
-            </Button>
-          </Right>
-        </Footer>
       </Container>
     );
   }
@@ -1104,16 +1111,14 @@ var styles = StyleSheet.create({
     color: '#000'
   },
 
-  footer: {
-    backgroundColor: COLORS.skyblue,
-    paddingLeft: 5,
-    paddingRight: 5
+
+  iconText: {
+    color: '#fff',
+    fontSize: 10
   },
-  footerBody: {
-    justifyContent: 'center',
-    width: 200,
-    flex: 1
-  },
+
+
+
   icon: {
     color: '#fff'
   },
@@ -1179,5 +1184,28 @@ var styles = StyleSheet.create({
   },
   motionActivityIcon: {
     fontSize: 24
-  }
+  },
+
+
+  mapMenuBottom: {
+    position:'absolute',
+    bottom: 5,
+    flexDirection: 'row',
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+
+
+  footer: {
+    backgroundColor: COLORS.skyblue,
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+  footerBody: {
+    justifyContent: 'center',
+    width: 200,
+    flex: 1
+  },
+
+
 });
