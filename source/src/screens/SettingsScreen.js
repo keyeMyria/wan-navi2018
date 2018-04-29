@@ -224,13 +224,35 @@ export default class SettingsScreen extends React.Component {
 
             {this.renderPluginSettings('geolocation')}
 
-            <Text style={styles.textinfo}>まとめて送信はGPS取得数が一定以上に溜まったら送信します。</Text>
+            <Text style={styles.textinfo}>GPS精度: -1: GPS + Wifi + Cellular、0: Wifi + Cellular</Text>
+            <Text style={styles.textinfo}>※ GPS取得間隔は速度が上がると自動で微調整されます。（値が上下します。）</Text>
+            <Text style={styles.textinfo}>※ まとめて送信はGPS取得数が設定値以上に溜まったら送信します。</Text>
+
 
             <FormItem style={styles.headerItem}>
-              <Text>APPLICATION</Text>
+              <Text>アクティビティ</Text>
+            </FormItem>
+
+            {this.renderPluginSettings('activity recognition')}
+
+            <Text style={styles.textinfo}>
+            ※ 検出レート：値を大きくすると、GPS検出が少なくなり、バッテリ寿命が向上します。 値が0の場合、可能な限り速い速度でアクティビティが検出されます。
+            </Text>
+
+            <Text style={styles.textinfo}>
+            ※ うまく記録されない場合、携帯停止時GPS自動OFFはON/OFF調整してみてください。
+            </Text>
+
+            <FormItem style={styles.headerItem}>
+              <Text>アプリケーション</Text>
             </FormItem>
             {this.renderPluginSettings('application')}
             {this.renderPluginSettings('debug')}
+
+            <Text style={styles.textinfo}>
+            アプリ終了時に位置取得を停止するは通常OFFにしておいてください
+            </Text>
+
 
             <FormItem style={styles.headerItem}>
               <Text>あなたの情報</Text>
