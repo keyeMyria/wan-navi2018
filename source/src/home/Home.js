@@ -23,12 +23,13 @@ import BackgroundGeolocation from "../react-native-background-geolocation";
 import DeviceInfo from 'react-native-device-info';
 
 import prompt from 'react-native-prompt-android';
-import SettingsService from '../screens/lib/SettingsService';
+import SettingsService from '../lib/SettingsService';
+//Config
+import {COLORS, STORAGE_KEY, SOUNDS} from '../lib/config';
 
 
 const DEFAULT_USERNAME = "react-native-anonymous";
 const TRACKER_HOST = 'http://tracker.transistorsoft.com/';
-const USERNAME_KEY = '@tachibanawanganWannavi:username';
 
 
 export default class Home extends Component<{}> {
@@ -60,11 +61,11 @@ export default class Home extends Component<{}> {
 
 
   onClickEditUsername() {
-    AsyncStorage.getItem(USERNAME_KEY, (err, username) => {
-      AsyncStorage.removeItem(USERNAME_KEY);
+    AsyncStorage.getItem(STORAGE_KEY.UserName, (err, username) => {
+      AsyncStorage.removeItem(STORAGE_KEY.UserName);
       this.getUsername(username).then(this.doGetUsername.bind(this)).catch(() => {
         // Revert to current username on [Cancel]
-        AsyncStorage.setItem(USERNAME_KEY, username);
+        AsyncStorage.setItem(STORAGE_KEY.UserName, username);
         this.onClickEditUsername();
       });
     });
@@ -73,7 +74,7 @@ export default class Home extends Component<{}> {
 
   getUsername(defaultValue) {
     return new Promise((resolve, reject) => {
-      AsyncStorage.getItem(USERNAME_KEY, (err, username) => {
+      AsyncStorage.getItem(STORAGE_KEY.UserName, (err, username) => {
         if (username) {
           resolve(username);
         } else {
@@ -104,7 +105,7 @@ export default class Home extends Component<{}> {
   }  
 
   doGetUsername(username) {
-    AsyncStorage.setItem(USERNAME_KEY, username);
+    AsyncStorage.setItem(STORAGE_KEY.UserName, username);
 
     this.setState({
       username: username,

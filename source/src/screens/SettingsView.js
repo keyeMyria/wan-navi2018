@@ -30,8 +30,8 @@ const Item = Picker.Item;
 // This simply allows one to change the import in a single file.
 import BackgroundGeolocation from "../react-native-background-geolocation";
 
-import SettingsService from './lib/SettingsService';
-import {SOUNDS, COLORS} from './lib/config';
+import SettingsService from '../lib/SettingsService';
+import {SOUNDS, COLORS} from '../lib/config';
 
 export default class SettingsView extends Component<{}> {
 

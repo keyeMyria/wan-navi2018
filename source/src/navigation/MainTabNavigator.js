@@ -13,7 +13,7 @@ import LinksScreen from '../screens/LinksScreen';
 import ManualScreen from '../screens/ManualScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CommentScreen from '../screens/CommentScreen';
-
+import AgreeScreen from '../screens/AgreeScreen';
 
 
 export default TabNavigator(
@@ -30,7 +30,9 @@ export default TabNavigator(
     Manual: {
       screen: ManualScreen,
     },
-
+    Agree: {
+      screen: AgreeScreen,
+    },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -48,8 +50,12 @@ export default TabNavigator(
             iconName = Platform.OS === 'ios' ? `ios-help${focused ? '' : '-outline'}` : 'md-help';
             break;            
           case 'Settings':
-            iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+            iconName = Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+            break;   
+          case 'Agree':
+            iconName = Platform.OS === 'ios' ? `ios-alert${focused ? '' : '-outline'}` : 'md-options';
+            break;   
+
         }
         return (
           <Icon

@@ -45,9 +45,9 @@ const LONGITUDE_DELTA = 0.00421;
 
 import App from '../App';
 
-import {COLORS, SOUNDS} from './lib/config';
+import {COLORS, STORAGE_KEY, SOUNDS} from '../lib/config';
 import SettingsView from './SettingsView';
-import SettingsService from './lib/SettingsService';
+import SettingsService from '../lib/SettingsService';
 
 //const TRACKER_HOST = 'http://tracker.transistorsoft.com/locations/';
 //cconst TRACKER_HOST = 'http://localhost:5000/api/RunnerSave/';

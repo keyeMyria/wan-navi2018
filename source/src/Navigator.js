@@ -25,6 +25,8 @@ import HelloWorld from './hello-world/HelloWorld';
 import SimpleMap from './simple-map/SimpleMap';
 import AdvancedApp from './advanced/AdvancedApp';
 import WanNavi from './wan-navi/WanNavi';
+//Config
+import {COLORS, STORAGE_KEY, SOUNDS} from '../lib/config';
 
 class Root extends Component<{}> {  
   componentDidMount() {
@@ -39,7 +41,7 @@ class Root extends Component<{}> {
         AsyncStorage.setItem("@tachibanawanganWannavi:initialRouteName", page);
       }
       // Append username to route params.
-      AsyncStorage.getItem("@tachibanawanganWannavi:username", (err, username) => {
+      AsyncStorage.getItem(STORAGE_KEY.UserName, (err, username) => {
         // Append username to route-params
         if (username) { params.username = username; }
         navigation.dispatch(NavigationActions.reset({

@@ -16,7 +16,7 @@ import {
 import Toast from 'react-native-root-toast';
 import prompt from 'react-native-prompt-android';
 import DeviceInfo from 'react-native-device-info';
-import BackgroundGeolocation from "../../react-native-background-geolocation";
+import BackgroundGeolocation from "../react-native-background-geolocation";
 
 const STORAGE_KEY = "@tachibanawanganWannavi:";
 //const TRACKER_HOST = 'http://tracker.transistorsoft.com/locations/';
@@ -80,7 +80,7 @@ const PLUGIN_SETTINGS = {
  //   {field: '', name: 'maxDaysToPersist', group: 'http', dataType: 'integer', inputType: 'select', values: [-1, 1, 2, 3, 4, 5, 6, 7], defaultValue: -1},
     // Application
     {field: '終了時に停止する', name:'stopOnTerminate', group: 'application', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
-//    {field: '', name:'startOnBoot', group: 'application', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
+    {field: '', name:'startOnBoot', group: 'application', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
 //    {field: '', name:'heartbeatInterval', group: 'application', dataType: 'integer', inputType: 'select', values: [-1, 60, (2*60), (5*60), (15*60)], defaultValue: 60},
     // Logging & Debug
     {field: '音と通知', name:'debug', group: 'debug', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: true},

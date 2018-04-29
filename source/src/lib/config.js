@@ -13,6 +13,13 @@ export const SOUNDS = {
 };
 
 
+
+export const STORAGE_KEY = {
+  STORAGE_KEY: "@tachibanawanganWannavi:",
+  AgreeLocation: "@tachibanawanganWannavi:agreeLocation",
+  UserName: "@tachibanawanganWannavi:userName",
+}
+
 export const COLORS = {
   gold: 'rgba(254,221,30,1)',//#fedd1e',
   light_gold: '#FFEB73',

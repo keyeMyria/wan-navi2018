@@ -27,8 +27,8 @@ const Item = Picker.Item;
 
 import BackgroundGeolocation from "../react-native-background-geolocation";
 
-import SettingsService from './lib/SettingsService';
-import {SOUNDS, COLORS} from './lib/config';
+import SettingsService from '../lib/SettingsService';
+import {SOUNDS, STORAGE_KEY, COLORS} from '../lib/config';
 
 
 const TRACKER_SERVER_HOST = 'https://sugasaki.github.io/wan-navi2/wan-navi2/';
@@ -118,7 +118,7 @@ export default class SettingsScreen extends React.Component {
   onChangeNickname(value) {
     if (!value) return;
     this.setState({username: value});
-    AsyncStorage.setItem("@tachibanawanganWannavi:username", value);
+    AsyncStorage.setItem(STORAGE_KEY.UserName, value);
 
     //ユーザー名をサーバーに送信
     this.settingsService.fetchAsync(value);
@@ -224,7 +224,6 @@ export default class SettingsScreen extends React.Component {
 
             {this.renderPluginSettings('geolocation')}
 
-            {this.renderPluginSettings('http')}
             <Text style={styles.textinfo}>まとめて送信はGPS取得数が一定以上に溜まったら送信します。</Text>
 
             <FormItem style={styles.headerItem}>
@@ -261,6 +260,8 @@ export default class SettingsScreen extends React.Component {
 
 
 /*
+
+            {this.renderPluginSettings('http')}
 {this.renderTrackingModeField()}
 
     <FormItem inlineLabel key="email" style={styles.formItem}>
