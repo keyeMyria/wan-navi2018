@@ -19,6 +19,8 @@ import {
   Item as FormItem,
   Spinner
 } from 'native-base';
+import DeviceInfo from 'react-native-device-info';
+
 
 const Item = Picker.Item;
 
@@ -29,6 +31,7 @@ import SettingsService from './lib/SettingsService';
 import {SOUNDS, COLORS} from './lib/config';
 
 
+const TRACKER_SERVER_HOST = 'https://sugasaki.github.io/wan-navi2/wan-navi2/';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -74,6 +77,13 @@ export default class SettingsScreen extends React.Component {
     this.settingsService.getApplicationState((state) => {
       this.setState(state);
     });
+
+
+    this.setState({
+      public_url: TRACKER_SERVER_HOST + '#' + DeviceInfo.getUniqueID(), 
+    });
+
+
   }  
 
   /**
@@ -227,8 +237,18 @@ export default class SettingsScreen extends React.Component {
               <Text>あなたの情報</Text>
             </FormItem>
 
-            <FormItem inlineLabel key="email" style={styles.formItem}>
+            <FormItem inlineLabel key="username" style={styles.formItem}>
               <Input placeholder="ニックネーム" value={this.state.username} onChangeText={this.onChangeNickname.bind(this)} />
+            </FormItem>
+
+
+            <FormItem style={styles.headerItem}>
+              <Text>公開用アドレス</Text>
+            </FormItem>
+
+
+            <FormItem inlineLabel key="url" style={styles.formItem}>
+              <Input placeholder="" value={this.state.public_url}  />
             </FormItem>
 
 

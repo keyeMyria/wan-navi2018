@@ -756,6 +756,8 @@ export default class HomeScreen extends React.Component {
           </ActionButton.Item>
 
 
+
+
         </ActionButton>
 
         <Footer style={styles.footer}>
@@ -786,7 +788,7 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-
+  
 
 
   onClickViewServer() {
