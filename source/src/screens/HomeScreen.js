@@ -18,7 +18,8 @@ import ActionButton from 'react-native-action-button';
 // Import native-base UI components
 import {
   Container,
-  Button, Icon,
+  Button, 
+  Icon,
   Text,
   Header, Footer, Title,
   Content,
@@ -87,7 +88,6 @@ export default class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
-
 
 
     AsyncStorage.setItem("@tachibanawanganWannavi:url", TRACKER_HOST);
@@ -162,6 +162,16 @@ export default class HomeScreen extends React.Component {
       region: this.state.initialRegion
     });
 
+    /* dosn't work 2018.4.30
+    AsyncStorage.getItem(STORAGE_KEY.isMainMenuOpen, (err, isMainMenuOpen) => {
+      if (!isMainMenuOpen) isMainMenuOpen = true;
+      //Alert.alert('isMainMenuOpen:', isMainMenuOpen,[{text: 'OK', onPress: () => {}},],{ cancelable: false });
+      //JSON.parse(isMainMenuOpen)
+      this.setState({
+        isMainMenuOpen: false
+      }); 
+    });
+    */
 
     
     // Fetch BackgroundGeolocation current state and use that as our config object.  we use the config as persisted by the
@@ -497,12 +507,17 @@ export default class HomeScreen extends React.Component {
   * FAB button show/hide handler
   */
   onClickMainMenu() {
-    let soundId = (this.state.isMainMenuOpen) ? 'CLOSE' : 'OPEN';
-    this.setState({
-      isMainMenuOpen: !this.state.isMainMenuOpen
-    });
+
+    let isMainMenuOpen = !this.state.isMainMenuOpen;
+    let soundId = (isMainMenuOpen) ? 'OPEN' : 'CLOSE';
     this.settingsService.playSound(soundId);
+    this.setState({
+      isMainMenuOpen: isMainMenuOpen
+    });
+
+    AsyncStorage.setItem(STORAGE_KEY.isMainMenuOpen, JSON.stringify(isMainMenuOpen))
   }
+
 
   getMainMenuIcon() {
     return <Icon name="ios-add" size={20}/>
@@ -716,6 +731,11 @@ export default class HomeScreen extends React.Component {
         </View>
 
 
+        <View style={styles.mapMenu2}>
+            <Icon style={styles.mapMenu2Icon} name="ios-navigate" onPress={() => this.onClickGetCurrentPosition()} /> 
+        </View>
+        
+
         <View style={styles.mapMenuBottom}>
           <Left style={{flex:0.3}}>
             <Title style={styles.title}>湾なび</Title>
@@ -726,10 +746,6 @@ export default class HomeScreen extends React.Component {
 
 
           <Right style={{flex: 0.3}}>
-            <Icon name="ios-walk" style={styles.title} />
-          </Right>      
-
-          <Right style={{flex: 0.3}}>
             <Button danger={this.state.isMoving}
               success={!this.state.isMoving}
               disabled={!this.state.enabled}
@@ -738,7 +754,6 @@ export default class HomeScreen extends React.Component {
             </Button>
           </Right>
         </View>
-
 
 
         <ActionButton
@@ -754,16 +769,9 @@ export default class HomeScreen extends React.Component {
           buttonTextStyle={{color: "#ffffff"}}
           spacing={15}
           offsetX={10}
-          offsetY={ACTION_BUTTON_OFFSET_Y}>
-
-
-
-          <ActionButton.Item size={40} buttonColor={COLORS.skyblue} onPress={() => this.onClickGetCurrentPosition()}>
-            <Icon name="md-navigate" style={styles.actionButtonIcon} />
-            <Title style={styles.iconText}>現</Title>
-          </ActionButton.Item>
-
-
+          offsetY={ACTION_BUTTON_OFFSET_Y}
+          activeOpacity={0.85}
+          >
           <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road55)}>
             <Title style={styles.title}>55</Title>
           </ActionButton.Item>
@@ -797,12 +805,20 @@ export default class HomeScreen extends React.Component {
 
         </ActionButton>
 
+        <View style={styles.mapMenuBottom}>
+        <Button
+          onPress={this.onPressLearnMore}
+          title="Learn More"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        </View>
+
       </Container>
     );
   }
 
   
-
 
   onClickViewServer() {
     Alert.alert(
@@ -1173,6 +1189,19 @@ var styles = StyleSheet.create({
     top: ACTION_BUTTON_OFFSET_Y,
     flexDirection: 'row'
   },
+
+  mapMenu2: {
+    position:'absolute',
+    right: 15,
+    top: ACTION_BUTTON_OFFSET_Y+45,
+    flexDirection: 'row'
+  },
+
+  mapMenu2Icon: {
+    color: COLORS.custom_blue
+  },
+
+
   mapMenuButton: {
     marginLeft: 10
   },

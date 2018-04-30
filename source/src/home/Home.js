@@ -1,41 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Image,
-  Platform,
-  StyleSheet,
   AsyncStorage,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
   Alert,
-  Linking,
-  View
+  View,
+  TextInput,
+  Button,
+  TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+
 import {
-  Container, Header, Content, Footer,
-  Left, Body, Right,
-  Card, CardItem,
-  Text, H1,
-  Button, Icon,
-  Title,
-  Item as FormItem,
-  Form, Item, Input, Label
+  Container, Header, Body,Title,
 } from 'native-base';
 
-import BackgroundGeolocation from "../react-native-background-geolocation";
-import DeviceInfo from 'react-native-device-info';
+import { NavigationActions } from 'react-navigation';
 
-import prompt from 'react-native-prompt-android';
-import SettingsService from '../lib/SettingsService';
+import DeviceInfo from 'react-native-device-info';
 //Config
 import {COLORS, STORAGE_KEY, SOUNDS} from '../lib/config';
+import SettingsService from '../lib/SettingsService';
 
-const DEFAULT_USERNAME = "react-native-anonymous";
 
 
-export default class Home extends Component<{}> {
+export default class ExpoScreen extends React.Component {
   constructor(props) {
     super(props);
 
     let navigation = props.navigation;
+
+    if (!navigation.state.params.username) navigation.state.params.username = "";
+
     this.state = {
       username: navigation.state.params.username,
     }
@@ -49,14 +47,11 @@ export default class Home extends Component<{}> {
   }
 
 
-  onChangeNickname(value) {
-    if (!value) return;
-    this.setState({username: value});
-  }
 
 
   onClickNavigate() {
-    if (! this.state.username || this.state.username == ''){
+
+    if (this.state.username === ''){
       Alert.alert('', 'ニックネームを入力してください',[{text: 'OK', onPress: () => {}},],{ cancelable: false });
       return;
     }
@@ -70,6 +65,7 @@ export default class Home extends Component<{}> {
       //画面遷移する
       this._navigat();
     });
+
   }
 
 
@@ -86,14 +82,39 @@ export default class Home extends Component<{}> {
     }));
   }
 
+  _onPressButton() {
+    Alert.alert('You tapped the button!')
+  }
+
+  _onLongPressButton() {
+    Alert.alert('You long-pressed the button!')
+  }
+
 
   render() {
     return (
-      <Container>
-        <View style={styles.container}>
-          <View style={styles.startedContainer}>
-            <Text style={styles.startedText}>橘湾岸273 スーパーマラニック</Text>
+
+      <Container style={styles.container}>
+
+        <Header style={styles.header}>
+          <Body>
+            <Title style={styles.title}>橘湾岸273 湾なび</Title>
+          </Body>
+        </Header>
+
+        <View style = {styles.bodyContainer}>
+
+          <Text style={styles.getStartedText}>湾なびには名前が必要です</Text>
+
+          <View>
+            <TextInput
+              placeholder="名前を入力してください" 
+              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              onChangeText={(text) => this.setState({username: text})}
+            />
+            <Text style={styles.tabBarInfoText}>{'your name: ' + this.state.username}</Text>
           </View>
+
 
           <View style={styles.welcomeContainer}>
              <Image
@@ -101,76 +122,78 @@ export default class Home extends Component<{}> {
               style={styles.openingImage}
             />
           </View>
-        
-          <Text style={styles.startedText}></Text>
-          <View style={styles.welcomeContainer}>
-            <Text style={styles.alert}>ニックネームを入力してください</Text>
-          <FormItem inlineLabel key="username" style={styles.formItem}>
-              <Input placeholder="ニックネーム" value={this.state.username} onChangeText={this.onChangeNickname.bind(this)} />
-          </FormItem>
 
-          </View>
+          <View style={styles.marginBottom}></View>
+
+          <TouchableOpacity onPress={() => this.onClickNavigate()}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>はじめる</Text>
+            </View>
+          </TouchableOpacity>
+
 
         </View>
-
-
-        <Footer style={styles.footer}>
-            <Card style={styles.userInfo}>
-              <View style={{margin: 0}}>
-                <Right>
-                  <Button full style={styles.button} onPress={() => this.onClickNavigate()}><Text>はじめる</Text></Button>
-                </Right>
-              </View>
-            </Card>
-        </Footer>
-
-
       </Container>
     );
   }
-  
 }
 
-
-
-
 const styles = StyleSheet.create({
-
   container: {
-    flex: 1,
+    backgroundColor: '#fff'
+  },
+
+  header: {
+    backgroundColor: '#fff'
+  },
+  title: {
+    color: '#000'
+  },
+  body: {
+    width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor:'#fff'
+  },
+
+
+    
+  bodyContainer: {
+    paddingTop: 23,
     backgroundColor: '#fff',
-    marginTop: 0,
-  },
-
-  formItem: {
-    backgroundColor: "#fff",
-    minHeight: 50,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 30,
+    marginRight: 30,
   },
 
 
-  footer: {
-    backgroundColor:"transparent",
-    height: 80
-  },
-
-  alert: {
-    color: '#ff3333',
-  },
-
-  startedContainer: {
+  button: {
+    marginBottom: 30,
+    width: 260,
     alignItems: 'center',
-    marginHorizontal: 50,
+    backgroundColor: '#2196F3'
   },
-  startedText: {
+  buttonText: {
+    padding: 20,
+    color: 'white'
+  },
+
+
+  getStartedText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
   },
+
+  tabBarInfoText: {
+    fontSize: 14,
+    color: 'rgba(96,100,109, 1)',
+    textAlign: 'center',
+  },
+
+  marginBottom: {
+    marginBottom: 20,
+  },
+
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 0,
@@ -178,14 +201,11 @@ const styles = StyleSheet.create({
   },
 
   openingImage: {
-    width: 300,
-    height: 400,
+    width: 150,
+    height: 200,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
   },
 
-  userInfo: {
-    padding: 10
-  }
-});
+})

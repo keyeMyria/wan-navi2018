@@ -1,0 +1,22 @@
+
+      <View style={styles.container}>
+
+
+          <View>
+            <TextInput
+              placeholder="ニックネーム" 
+              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              onChangeText={(text) => this.setState({username: text})}
+            />
+            <Text>{'user input: ' + this.state.username}</Text>
+          </View>
+
+
+          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+            <Right>
+              <Button full style={styles.button} onPress={() => this.onClickNavigate()}><Text>はじめる</Text></Button>
+            </Right>
+          </View>
+
+
+      </View>

@@ -18,6 +18,7 @@ export const STORAGE_KEY = {
   STORAGE_KEY: "@tachibanawanganWannavi:",
   AgreeLocation: "@tachibanawanganWannavi:agreeLocation",
   UserName: "@tachibanawanganWannavi:userName",
+  isMainMenuOpen: "@tachibanawanganWannavi:isMainMenuOpen",
 }
 
 export const COLORS = {

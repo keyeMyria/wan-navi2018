@@ -258,19 +258,14 @@ export default class SettingsScreen extends React.Component {
               <Text>あなたの情報</Text>
             </FormItem>
 
-            <FormItem inlineLabel key="username" style={styles.formItem}>
               <Input placeholder="ニックネーム" value={this.state.username} onChangeText={this.onChangeNickname.bind(this)} />
-            </FormItem>
+
 
 
             <FormItem style={styles.headerItem}>
               <Text>公開用アドレス</Text>
             </FormItem>
-
-
-            <FormItem inlineLabel key="public_url" style={styles.formItem}>
-              <Input placeholder="" value={this.state.public_url}  />
-            </FormItem>
+            <Input placeholder="" value={this.state.public_url}  />
 
 
           </Form>

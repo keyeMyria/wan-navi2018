@@ -19,12 +19,19 @@ import {
   Title,
   Form, Item, Input, Label
 } from 'native-base';
+import DeviceInfo from 'react-native-device-info';
 
 import { NavigationActions } from 'react-navigation';
 
 import AgreeBody from './AgreeBody';
 import {COLORS, STORAGE_KEY, SOUNDS} from '../lib/config';
 
+let OFFSET_BOTTOM_Y  = 0;
+if (Platform.OS == 'android') {
+  OFFSET_BOTTOM_Y = 0;
+} else if (DeviceInfo.getModel() === 'iPhone X') {
+  OFFSET_BOTTOM_Y = 25;
+}
 
 
 export default class AgreeLocation extends Component<{}> {
@@ -148,12 +155,7 @@ const styles = StyleSheet.create({
   button: {
     marginBottom: 10
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
+
 
   contentContainer: {
     paddingTop: 0,
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
 
   footer: {
     backgroundColor:"transparent",
-    height: 100
+    height: 100 + OFFSET_BOTTOM_Y
   },
   userInfo: {
     padding: 10
