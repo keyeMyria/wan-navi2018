@@ -73,11 +73,22 @@ if (Platform.OS == 'android') {
   ACTION_BUTTON_OFFSET_Y = 35;
 }
 
-
+/*
 import Road55 from '../assets/geojson/55.json';
 import Road80 from '../assets/geojson/80.json';
 import Road173 from '../assets/geojson/173.json';
 import Road217 from '../assets/geojson/217.json';
+*/
+
+
+import E217 from '../assets/geojson/E前半 EL合流まで.json';
+import L173 from '../assets/geojson/L前半 EL合流まで.json';
+import M80 from '../assets/geojson/M80～茂木.json';
+import S55 from '../assets/geojson/S55～日見.json';
+
+import ELMogi from '../assets/geojson/EL合流～茂木.json';
+import MogiHimi from '../assets/geojson/茂木～日見.json';
+import Himi from '../assets/geojson/日見以降.json';
 
 
 export default class HomeScreen extends React.Component {
@@ -88,7 +99,6 @@ export default class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
-
 
     AsyncStorage.setItem("@tachibanawanganWannavi:url", TRACKER_HOST);
 
@@ -138,15 +148,15 @@ export default class HomeScreen extends React.Component {
         longitudeDelta: 0.8,
       },
 
-
-      navigateRoad: {
-        coordinates: Road173.features[0].geometry.coordinates.map((point, index) => {
-          return  {
-              latitude : point[1],
-              longitude : point[0]
-          }
-        })
-      }
+      navigateRoad: {},
+      // navigateRoad: {
+      //   coordinates: L173.features[0].geometry.coordinates.map((point, index) => {
+      //     return  {
+      //         latitude : point[1],
+      //         longitude : point[0]
+      //     }
+      //   })
+      // }
 
 
     };
@@ -155,12 +165,56 @@ export default class HomeScreen extends React.Component {
     this.settingsService.setUsername(this.state.username);
   }
 
+  //
+  loadGPX(){
+
+    let E217_Coordinates =  E217.features[0].geometry.coordinates.map((point, index) => {return  {latitude : point[1],longitude : point[0]}})
+    let L173_Coordinates =  L173.features[0].geometry.coordinates.map((point, index) => {return  {latitude : point[1],longitude : point[0]}})
+    let M80_Coordinates =  M80.features[0].geometry.coordinates.map((point, index) => {return  {latitude : point[1],longitude : point[0]}})
+    let S55_Coordinates =  S55.features[0].geometry.coordinates.map((point, index) => {return  {latitude : point[1],longitude : point[0]}})
+
+    let ELMogi_Coordinates =  ELMogi.features[0].geometry.coordinates.map((point, index) => {return  {latitude : point[1],longitude : point[0]}})
+    let MogiHimi_Coordinates =  MogiHimi.features[0].geometry.coordinates.map((point, index) => {return  {latitude : point[1],longitude : point[0]}})
+    let Himi_Coordinates =  Himi.features[0].geometry.coordinates.map((point, index) => {return  {latitude : point[1],longitude : point[0]}})
+
+
+    var Road217 = E217_Coordinates.concat(ELMogi_Coordinates);
+    Road217 = Road217.concat(MogiHimi_Coordinates);
+    Road217 = Road217.concat(Himi_Coordinates);
+
+
+    var Road173 = L173_Coordinates.concat(ELMogi_Coordinates);
+    Road173 = Road173.concat(MogiHimi_Coordinates);
+    Road173 = Road173.concat(Himi_Coordinates);
+
+
+    var Road80 = M80_Coordinates.concat(MogiHimi_Coordinates);
+    Road80 = Road80.concat(Himi_Coordinates);
+
+    var Road55 = S55_Coordinates.concat(Himi_Coordinates);
+
+    this.setState({
+      Road217: Road217,
+      Road173: Road173,
+      Road80: Road80,
+      Road55: Road55,
+
+      navigateRoad:  {
+        coordinates: Road217,
+      }
+    });
+
+
+  }
+
 
   componentDidMount() {
 
     this.setState({
       region: this.state.initialRegion
     });
+
+    this.loadGPX();
 
     /* dosn't work 2018.4.30
     AsyncStorage.getItem(STORAGE_KEY.isMainMenuOpen, (err, isMainMenuOpen) => {
@@ -173,7 +227,6 @@ export default class HomeScreen extends React.Component {
     });
     */
 
-    
     // Fetch BackgroundGeolocation current state and use that as our config object.  we use the config as persisted by the
     // Settings screen to configure the plugin.
 
@@ -772,21 +825,21 @@ export default class HomeScreen extends React.Component {
           offsetY={ACTION_BUTTON_OFFSET_Y}
           activeOpacity={0.85}
           >
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road55)}>
+          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road55)}>
             <Title style={styles.title}>55</Title>
           </ActionButton.Item>
 
 
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road80)}>
+          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road80)}>
             <Title style={styles.title}>80</Title>
           </ActionButton.Item>
 
 
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road173)}>
+          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road173)}>
             <Title style={styles.title}>173</Title>
           </ActionButton.Item>
 
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(Road217)}>
+          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road217)}>
             <Title style={styles.title}>217</Title>
           </ActionButton.Item>
 
@@ -843,23 +896,9 @@ export default class HomeScreen extends React.Component {
     this.setState({
 
       navigateRoad: {
-        coordinates: value.features[0].geometry.coordinates.map((point, index) => {
-          return  {
-              latitude : point[1],
-              longitude : point[0]
-          }
-        })
+        coordinates: value
       },
       
-      /*
-      region: {
-        latitude: 32.74230,
-        longitude: 129.869925,
-        latitudeDelta: 1.0,
-        longitudeDelta: 1.0,
-      },
-      */
-
     });
 
   }
