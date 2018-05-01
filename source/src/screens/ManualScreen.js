@@ -8,7 +8,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {
+  Container, Header, Content, Footer,
+  Left, Body, Right,
+  Card, CardItem, 
+  H1,
+  Button, Icon,
+  Title,
+  Form, Item, Input, Label
+} from 'native-base';
 
+const TRACKER_SERVER_HOST = 'https://sugasaki.github.io/wan-navi2/wan-navi2/';
 
 export default class ManualScreen extends React.Component {
   static navigationOptions = {
@@ -19,18 +29,70 @@ export default class ManualScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
+        <Header style={styles.header}>
+          <Body>
+            <Title style={styles.title}>使い方</Title>
+          </Body>
+        </Header>
+
+
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
+
+
+          <View style={styles.getStartedContainer}>
+            <Text style={styles.getStartedText}>使い方とインストール</Text>
+
+          </View>
+
+
+
+            <Card style={styles.userInfo}>
+              <Text style={styles.p}>以下のボタンを押す事で使い方を表示する事ができます。</Text>
+
+
+              <CardItem style={{margin: 0}}>
+                <Left>
+                </Left>
+                <Right>
+                  <Button small full onPress={this.onClickViewServer.bind(this)}><Text style={styles.textWhite}>使い方を見る</Text></Button>
+                </Right>
+              </CardItem>
+            </Card>
+
+
+            <Text style={styles.getStartedText}>
+              湾なびは以下のページからインストールできます。 ぜひ、お友達に教えてあげてください。
+            </Text>
+
+
+             <Image
+              source={ require('../assets/images/qrcode_tachibanawangan-wan-navi.png')}
+              style={styles.qrImage}
+            />
+
+          </View>
+
+
+
+            <Card style={styles.userInfo}>
+              <Text style={styles.p}>湾ナビは橘湾岸マラニックのランナー皆さんの完走を願って作成しました。</Text>
+              <Text style={styles.p}>完走してゴールの南本公民館で会いましょう。</Text>
+
+              <CardItem style={{margin: 0}}>
+                <Left>
+                </Left>
+                <Right>
+
              <Image
               source={ require('../assets/images/opening.jpg')}
               style={styles.openingImage}
-            />
-          </View>
+              />
+                </Right>
+              </CardItem>
+            </Card>
 
-          <View style={styles.getStartedContainer}>
-            <Text style={styles.getStartedText}>湾なび</Text>
-          </View>
 
         </ScrollView>
 
@@ -39,103 +101,72 @@ export default class ManualScreen extends React.Component {
     );
   }
 
+
+
+  onClickViewServer() {
+    Linking.canOpenURL(this.state.url).then(supported => {
+     if (supported) {
+       Linking.openURL(this.state.url);
+     } else {
+       console.log("Don't know how to open URI: " + this.props.url);
+     }
+   });
+ }
+
+
+
 }
 
 const styles = StyleSheet.create({
+  textWhite: {
+    color: '#fff'
+  },
+  header: {
+    backgroundColor: '#fff'
+  },
+
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
   contentContainer: {
     paddingTop: 0,
   },
-
+  contentContainer: {
+    paddingTop: 30,
+  },
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 0,
     marginBottom: 0,
   },
 
-  openingImage: {
-    width: 300,
-    height: 500,
+  qrImage: {
+    width: 170,
+    height: 170,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
   },
 
-  welcomeImage: {
-    width: 100,
-    height: 80,
+  openingImage: {
+    width: 200,
+    height: 200,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
+
+
   getStartedText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
   },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 0,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+
+
+
+
+
 });

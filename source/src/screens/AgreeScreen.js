@@ -29,7 +29,7 @@ export default class AgreeScreen extends Component<{}> {
             <Container>
             <Header style={styles.header}>
               <Body>
-                <Title style={styles.title}>橘湾岸273 湾なび</Title>
+                <Title style={styles.title}>利用規約</Title>
               </Body>
             </Header>
     

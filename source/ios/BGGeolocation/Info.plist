@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>13</string>
+	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -61,17 +61,15 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>湾なびでは位置情報を使います。常に許可を選択してください。その他を選んだ場合には正常に動作しない可能性があります。</string>
+	<string>位置情報はランナーのナビゲーション・地図表示、ルート検索・案内・みまもりの為に使用します。”常に許可”にすると位置を運営事務局・他ランナー・ご家族等が位置を確認することができます。</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>湾なびでは位置情報を使います。常に許可を選択してください。その他を選んだ場合には正常に動作しない可能性があります。</string>
+	<string>位置情報はランナーのナビゲーション・地図表示、ルート検索・案内・みまもりの為に使用します。”常に許可”にすると位置を運営事務局・他ランナー・ご家族等が位置を確認することができます。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>湾なびでは位置情報を使います。常に許可を選択してください。その他を選んだ場合には正常に動作しない可能性があります。</string>
+	<string>位置情報はランナーのナビゲーション・地図表示、ルート検索・案内・みまもりの為に使用します。”常に許可”にすると位置を運営事務局・他ランナー・ご家族等が位置を確認することができます。</string>
 	<key>NSMainNibFile</key>
 	<string>LaunchScreen</string>
 	<key>NSMotionUsageDescription</key>
-	<string>湾なびでは位置情報を使います。位置情報を低電力にすることでも使えますが期待通りには動作しない可能性があります。
-	
-	</string>
+	<string>位置情報はランナーのナビゲーション・地図表示、ルート検索・案内・みまもりの為に使用します。”常に許可”にすると位置を運営事務局・他ランナー・ご家族等が位置を確認することができます。</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
