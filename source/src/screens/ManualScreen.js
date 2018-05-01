@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  Linking,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -18,7 +19,7 @@ import {
   Form, Item, Input, Label
 } from 'native-base';
 
-const TRACKER_SERVER_HOST = 'https://sugasaki.github.io/wan-navi2/wan-navi2/';
+const MANUAL_HOST = 'https://tachibanawangan.com/wan-navi/';
 
 export default class ManualScreen extends React.Component {
   static navigationOptions = {
@@ -104,9 +105,9 @@ export default class ManualScreen extends React.Component {
 
 
   onClickViewServer() {
-    Linking.canOpenURL(this.state.url).then(supported => {
+    Linking.canOpenURL(MANUAL_HOST).then(supported => {
      if (supported) {
-       Linking.openURL(this.state.url);
+       Linking.openURL(MANUAL_HOST);
      } else {
        console.log("Don't know how to open URI: " + this.props.url);
      }
