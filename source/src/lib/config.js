@@ -38,6 +38,6 @@ export const COLORS = {
   custom_blue: "#3498db",
 
   alice_blue: "#F0F8FF",
-
+  light_gray: "#E0E0E0",
 
 };

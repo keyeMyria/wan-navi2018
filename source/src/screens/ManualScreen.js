@@ -64,7 +64,7 @@ export default class ManualScreen extends React.Component {
 
 
             <Text style={styles.getStartedText}>
-              湾なびは以下のページからインストールできます。 ぜひ、お友達に教えてあげてください。
+              湾なびは以下のページからインストールできます。{"\n"} ぜひ、お友達に教えてあげてください。
             </Text>
 
 
@@ -78,8 +78,9 @@ export default class ManualScreen extends React.Component {
 
 
             <Card style={styles.userInfo}>
-              <Text style={styles.p}>湾ナビは橘湾岸マラニックのランナー皆さんの完走を願って作成しました。</Text>
-              <Text style={styles.p}>完走してゴールの南本公民館で会いましょう。</Text>
+              <Text style={styles.p}>湾ナビは橘湾岸マラニックのランナー皆さんの完走を願って作成しました。{"\n"}
+              完走してゴールの南本公民館で会いましょう。
+              </Text>
 
               <CardItem style={{margin: 0}}>
                 <Left>

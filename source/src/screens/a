@@ -1,0 +1,34 @@
+
+
+            <Switch onValueChange={() => this.onToggleEnabled()} value={this.state.enabled} />
+
+
+      Alert.alert(
+        '',
+        '位置記録を開始しますか？',
+        [
+          {text: 'No', onPress: () => {
+            Alert.alert('', '利用規約に同意しないと本アプリを使用できません',[{text: 'OK', onPress: () => {}},],{ cancelable: false });
+            
+          }, style: 'cancel'},
+          {text: 'Yes', onPress: () => {
+            Alert.alert('', '利用規約に同意しないと本アプリを使用できません',[{text: 'OK', onPress: () => {}},],{ cancelable: false });
+            
+          }
+        },
+        ],
+        { cancelable: false }
+      )
+  
+  
+
+
+            < CustomButton onClick={this._onClick}/>
+
+
+                      Alert.alert('', '利用規約に同意しないと本アプリを使用できません',[{text: 'OK', onPress: () => {}},],{ cancelable: false });
+
+
+
+import aid from '../assets/geojson/aid.json';
+

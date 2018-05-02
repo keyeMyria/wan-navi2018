@@ -50,6 +50,12 @@ import {COLORS, STORAGE_KEY, SOUNDS} from '../lib/config';
 import SettingsView from './SettingsView';
 import SettingsService from '../lib/SettingsService';
 
+
+//components
+import SlideSwich from '../components/SlideSwich';
+import CustomButton from '../components/CustomButton';
+
+//const
 //const TRACKER_HOST = 'http://tracker.transistorsoft.com/locations/';
 //cconst TRACKER_HOST = 'http://localhost:5000/api/RunnerSave/';
 const TRACKER_HOST = 'https://wan-navi.azurewebsites.net/api/RunnerSave/';
@@ -81,6 +87,7 @@ import Road217 from '../assets/geojson/217.json';
 */
 
 
+//map data
 import E217 from '../assets/geojson/E前半 EL合流まで.json';
 import L173 from '../assets/geojson/L前半 EL合流まで.json';
 import M80 from '../assets/geojson/M80～茂木.json';
@@ -486,14 +493,15 @@ export default class HomeScreen extends React.Component {
     console.log('[event] - enabledchange', event);
     this.settingsService.toast('[event] enabledchange: ' + event.enabled);
   }
+
+
+
   /**
   * Toggle button handler to #start / #stop the plugin
   */
-  onToggleEnabled(value) {
-    this.settingsService.playSound('BUTTON_CLICK');
-
-    let enabled = !this.state.enabled;
-
+  onToggleEnabled(enabled) {
+    if (enabled){ alert("ON")}else{alert("OFF")}
+   
     this.setState({
       enabled: enabled,
       isMoving: false,
@@ -503,9 +511,6 @@ export default class HomeScreen extends React.Component {
 
     if (enabled) {
       BackgroundGeolocation.start((state) => {
-        // We tell react-native-maps to access location only AFTER
-        // the plugin has requested location, otherwise we have a permissions tug-of-war,
-        // since react-native-maps wants WhenInUse permission
         this.setState({
           showsUserLocation: enabled,
           followsUserLocation: enabled
@@ -514,7 +519,7 @@ export default class HomeScreen extends React.Component {
     } else {
       BackgroundGeolocation.stop();
       // Clear markers, polyline, geofences, stationary-region
-      this.clearMarkers();
+      // this.clearMarkers();
       this.setState({
         stationaryRadius: 0,
         stationaryLocation: {
@@ -523,8 +528,14 @@ export default class HomeScreen extends React.Component {
           longitude: 0
         }
       });
+
+
     }
   }
+
+
+
+
 
   /**
   * get current position button handler
@@ -707,6 +718,16 @@ export default class HomeScreen extends React.Component {
     this.settingsService.toast(message, 'SHORT');
   }
 
+  _onClick() {
+
+    Alert.alert('', '利用規約に同意しないと本アプリを使用できません',[{text: 'OK', onPress: () => {}},],{ cancelable: false });
+
+    this.setState({
+      message: "aaa",
+      enabled: true
+    });
+  }
+
 
   render() {
 
@@ -778,10 +799,13 @@ export default class HomeScreen extends React.Component {
             <Icon name="ios-radio-button-off" />
           </Button>
 
-          <Right>
-            <Switch onValueChange={() => this.onToggleEnabled()} value={this.state.enabled} />
-          </Right>
+          <View style={styles.SlideSwichBox}>
+            <SlideSwich onValueChange={(enabled) => this.onToggleEnabled(enabled)} value={this.state.enabled}/>
+          </View>
+
         </View>
+
+
 
 
         <View style={styles.mapMenu2}>
@@ -1252,6 +1276,12 @@ var styles = StyleSheet.create({
   },
   motionActivityIcon: {
     fontSize: 24
+  },
+
+
+  SlideSwichBox: {
+    marginLeft: 10,
+    justifyContent: 'center',
   },
 
 
