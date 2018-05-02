@@ -194,7 +194,7 @@ export default class HomeScreen extends React.Component {
     //alert(AidFeatures);
 
 
-     Road217 = E217_Coordinates.concat(ELMogi_Coordinates);
+    Road217 = E217_Coordinates.concat(ELMogi_Coordinates);
     Road217 = Road217.concat(MogiHimi_Coordinates);
     Road217 = Road217.concat(Himi_Coordinates);
 
@@ -215,15 +215,6 @@ export default class HomeScreen extends React.Component {
       Road173: Road173,
       Road80: Road80,
       Road55: Road55,
-
-      aid217: null,
-      cp217: null,
-      aid173: null,
-      cp173: null,
-      aid80: null,
-      cp80: null,
-      aid55: null,
-      cp55: null,
     });
 
 
@@ -231,15 +222,11 @@ export default class HomeScreen extends React.Component {
       navigateRoad:  {
         coordinates: Road173,
       },
-
       aidFeatures: null, //aid173.features,
       cpFeatures: null, //cp173.features,
-
     });
 
-
   }
-
 
 
 fetchAsync  = async (filename) => {
@@ -259,13 +246,9 @@ fetchAsync  = async (filename) => {
       break;
     case "aid173":
       this.setState({aid173: responseJson.features});
-      this.setState({aidFeatures: responseJson.features});
-  
       break;
     case "cp173":
       this.setState({cp173: responseJson.features});
-      this.setState({cpFeatures: responseJson.features});
-
       break;
     case "aid80":
       this.setState({aid80: responseJson.features});
@@ -289,6 +272,18 @@ fetchAsync  = async (filename) => {
 
 
 fetchAll() {
+
+  this.setState({
+    aid217: null,
+    cp217: null,
+    aid173: null,
+    cp173: null,
+    aid80: null,
+    cp80: null,
+    aid55: null,
+    cp55: null,
+  });
+
   this.fetchAsync("aid217");
   this.fetchAsync("cp217");
   this.fetchAsync("aid173");
@@ -328,10 +323,17 @@ fetchAll() {
 
     // Fetch current app settings state.
     this.settingsService.getApplicationState((state) => {
+
+      state.hideMarkers = false;
+      state.hidePolyline = false;
+      state.hideGeofenceHits = false;
+
       this.setState({
         settings: state
       });
     });
+
+
   }
 
   componentWillUnmount() {
@@ -806,15 +808,19 @@ fetchAll() {
   }
 
   _onClick() {
-
-    Alert.alert('', '利用規約に同意しないと本アプリを使用できません',[{text: 'OK', onPress: () => {}},],{ cancelable: false });
-
+    alert('_onClick');
     this.setState({
-      message: "aaa",
       enabled: true
     });
   }
 
+
+  _onClickKaisi(value) {
+    this.setState({
+      enabled: value
+    });
+  }
+  
 
   render() {
 
@@ -879,22 +885,10 @@ fetchAll() {
 
 
         <View style={styles.mapMenu}>
-          <Body>
-          </Body>
-
-          <Button info light={this.state.settings.hideMarkers} style={styles.mapMenuButton} onPress={() => this.onClickMapMenu('hideMarkers') }>
-            <Icon name="ios-pin" />
-          </Button>
-          <Button info light={this.state.settings.hidePolyline} style={styles.mapMenuButton} onPress={() => this.onClickMapMenu('hidePolyline')}>
-            <Icon name="ios-pulse" />
-          </Button>
-          <Button info light={this.state.settings.hideGeofenceHits} style={styles.mapMenuButton} onPress={() => this.onClickMapMenu('hideGeofenceHits')}>
-            <Icon name="ios-radio-button-off" />
-          </Button>
-
-          <View style={styles.SlideSwichBox}>
+          <View style={styles.startBorder}>
+            <Text style={styles.startBorderText}>出走開始・停止</Text>
             <SlideSwich onValueChange={(enabled) => this.onToggleEnabled(enabled)} value={this.state.enabled}/>
-          </View>
+         </View>
 
         </View>
 
@@ -902,17 +896,16 @@ fetchAll() {
 
         <View style={styles.mapMenu2}>
 
-            <Button info light={this.state.hideAidMarkers} style={styles.mapMenuButton} onPress={() => this.onClickAidMenu() }>
-              <Image source={ iconAid } />
-            </Button>
+          <Icon name="ios-refresh-circle-outline" onPress={() => this.fetchAll() } />
 
-            <Button info light={this.state.hideCPMarkers} style={styles.mapMenuButton} onPress={() => this.onClickCPMenu()}>
-              <Image source={ wangan } />
-            </Button>
-            
-            <Button light style={styles.mapMenuButton}  onPress={() => this.onClickGetCurrentPosition()}>
-              <Icon style={styles.mapMenu2Icon} name="ios-navigate" /> 
-            </Button>
+          <Button info light={this.state.hideAidMarkers} style={styles.mapMenuButton} onPress={() => this.onClickAidMenu() }>
+            <Image source={ iconAid } style={styles.mapMenuButtonIcon} />
+          </Button>
+
+          <Button info light={this.state.hideCPMarkers} style={styles.mapMenuButton} onPress={() => this.onClickCPMenu()}>
+            <Image source={ wangan } style={styles.mapMenuButtonIcon} />
+          </Button>
+          
         </View>
         
 
@@ -952,6 +945,13 @@ fetchAll() {
           offsetY={ACTION_BUTTON_OFFSET_Y}
           activeOpacity={0.85}
           >
+
+          <ActionButton.Item size={40} buttonColor={COLORS.skyblue} onPress={() => this.onClickGetCurrentPosition()}>
+            <Icon name="ios-navigate" style={styles.actionButtonIcon} />
+            <Text style={styles.iconText}>現在</Text>
+          </ActionButton.Item>
+          
+
           <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road55, this.state.aid55, this.state.cp55)}>
             <Title style={styles.title}>55</Title>
           </ActionButton.Item>
@@ -968,11 +968,6 @@ fetchAll() {
 
           <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road217, this.state.aid217, this.state.cp217)}>
             <Title style={styles.title}>217</Title>
-          </ActionButton.Item>
-
-
-          <ActionButton.Item size={40} buttonColor={COLORS.skyblue} onPress={() => this.onSelectMainMenu('sync')}>
-            {!this.state.isSyncing ? (<Icon name="ios-cloud-upload" style={styles.actionButtonIcon} />) : (<Spinner color="#000" size="small" />)}
           </ActionButton.Item>
 
 
@@ -1367,6 +1362,23 @@ var styles = StyleSheet.create({
   },
 
 
+  startBorder: {
+    width: 190,
+    borderColor:'#000000',
+    right: 5,
+
+    position:'absolute',
+    flexDirection: 'row'
+  },
+
+  startBorderText: {
+    color: '#ff0000',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginRight:5,
+  },
+
+
   iconText: {
     color: '#fff',
     fontSize: 10
@@ -1436,7 +1448,7 @@ var styles = StyleSheet.create({
   mapMenu2: {
     position:'absolute',
     right: 15,
-    top: ACTION_BUTTON_OFFSET_Y+45,
+    bottom: 60,
     flexDirection: 'row'
   },
 
@@ -1446,8 +1458,18 @@ var styles = StyleSheet.create({
 
 
   mapMenuButton: {
+    width: 30,
+    height: 30,
     marginLeft: 10
   },
+
+  mapMenuButtonIcon: {
+    width: 10,
+    height: 10,
+  },
+
+
+
   mapMenuIcon: {
     color: '#000'
   },
