@@ -500,7 +500,7 @@ export default class HomeScreen extends React.Component {
   * Toggle button handler to #start / #stop the plugin
   */
   onToggleEnabled(enabled) {
-    if (enabled){ alert("ON")}else{alert("OFF")}
+    //if (enabled){ alert("ON")}else{alert("OFF")}
    
     this.setState({
       enabled: enabled,
