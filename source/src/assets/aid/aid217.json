@@ -1,0 +1,380 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.8721649,32.7442397]
+            },
+            "properties": {
+                "id": 87,
+                "place": "スタート",
+                "comment": "0km",
+                "gatetime": "",
+                "note": "水辺の森公園",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.8403108, 32.7689616]
+            },
+            "properties": {
+                "id": 2,
+                "place": "城山台",
+                "comment": "10km 無人エイド" ,
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.825069, 32.852432]
+            },
+            "properties": {
+                "id": 2,
+                "place": "日並",
+                "comment": "22ｋｍ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.809928, 32.825678]
+            },
+            "properties": {
+                "id": 2,
+                "place": "鳴見ダム",
+                "comment": "32.9ｋｍ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.79794681072238, 32.801479249710709]
+            },
+            "properties": {
+                "id": 2,
+                "place": "ＣＰ あぐりの丘",
+                "comment": "44.9ｋｍ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.800221, 32.778187]
+            },
+            "properties": {
+                "id": 2,
+                "place": "蝶が崎 無人エイド",
+                "comment": "32.1ｋｍ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.814119, 32.750630]
+            },
+            "properties": {
+                "id": 2,
+                "place": "福田霊園 無人エイド",
+                "comment": "36.8ｋｍ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.85616683959964, 32.718121524035546]
+            },
+            "properties": {
+                "id": 71,
+                "place": "女神大橋エイド",
+                "comment": "うどん",
+                "gatetime": "",
+                "note": "65ｋｍ",
+                "isunmanned": false
+            }
+        },
+
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.792103, 32.691025]
+            },
+            "properties": {
+                "id": 71,
+                "place": "伊王島 エイド  公衆トイレ",
+                "comment": "",
+                "gatetime": "",
+                "note": "77.2km 89km",
+                "isunmanned": false
+            }
+        },
+
+
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.791653, 32.620732]
+            },
+            "properties": {
+                "id": 2,
+                "place": "夫婦岩 無人エイド",
+                "comment": "km",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.74151849746707, 32.579130236535867]
+            },
+            "properties": {
+                "id": 112,
+                "place": "権現山山頂展望台",
+                "comment": "113.6km",
+                "gatetime": "",
+                "note": "ミネストローネ",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.78557109832767, 32.563524736729136]
+            },
+            "properties": {
+                "id": 84,
+                "place": "椛島公民館",
+                "comment": "124.3",
+                "gatetime": "",
+                "note": "カレーライス",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.83629703521731, 32.635146600017208]
+            },
+            "properties": {
+                "id": 85,
+                "place": "川原コミュ憩いの家",
+                "comment": "143.0km",
+                "gatetime": "",
+                "note": "水餃子・おにぎり",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.8773424, 32.6569485]
+            },
+            "properties": {
+                "id": 85,
+                "place": "千々 無人エイド",
+                "comment": "106km",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.91438150405887, 32.701840569670857]
+            },
+            "properties": {
+                "id": 86,
+                "place": "茂木ぶらぶら",
+                "comment": "159.2km　ドロップバッグ預かり",
+                "gatetime": "",
+                "note": "角煮めし、ごはん",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.94253396987918, 32.758849253123351]
+            },
+            "properties": {
+                "id": 6,
+                "place": "日見公園",
+                "gatetime": "関門 10:00",
+                "comment": "173.6km",
+                "note": "豚汁・いなり",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.01118779182437, 32.761772486441927]
+            },
+            "properties": {
+                "id": 88,
+                "place": "飯盛峠とんの山",
+                "comment": "182.4km",
+                "gatetime": "",
+                "note": "おはぎ",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.04675388336184, 32.785939617338457]
+            },
+            "properties": {
+                "id": 105,
+                "place": "飯盛経塚　げんき君",
+                "comment": "189.6km",
+                "gatetime": "",
+                "note": "特製ゼリー",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.0742374, 32.7903267]
+            },
+            "properties": {
+                "id": 105,
+                "place": "有喜 無人エイド",
+                "comment": "km ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.18798828125003, 32.788429027225519]
+            },
+            "properties": {
+                "id": 121,
+                "place": "千々石 集会所",
+                "comment": "163.7km",
+                "gatetime": "関門 15:40",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.2015246, 32.7585489]
+            },
+            "properties": {
+                "id": 105,
+                "place": "富津 無人エイド",
+                "comment": "168.2km ",
+                "gatetime": "あと5km",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.201424, 32.719205]
+            },
+            "properties": {
+                "id": 90,
+                "place": "ゴール",
+                "comment": null,
+                "gatetime": "関門 17:00",
+                "note": null,
+                "isunmanned": false
+            }
+        }
+    ]
+}

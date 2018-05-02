@@ -1,0 +1,74 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.8690197, 32.7293426]
+            },
+            "properties": {
+                "id": 88,
+                "place": "第1ＣＰ 鍋冠山CP",
+                "gatetime": "",
+                "comment": "16.2km",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.912387, 32.707841]
+            },
+            "properties": {
+                "id": 86,
+                "place": "第2ＣＰ 茂木支所",
+                "comment": "24km ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.01118779182437, 32.761772486441927]
+            },
+            "properties": {
+                "id": 88,
+                "place": "第3ＣＰ 飯盛峠とんの山",
+                "gatetime": "",
+                "comment": "46.0km",
+                "note": "おはぎ",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.18798828125003, 32.788429027225519]
+            },
+            "properties": {
+                "id": 121,
+                "place": "第4ＣＰ 千々石漁港",
+                "comment": "70.9km",
+                "gatetime": "関門 15:40",
+                "note": "エイド食未定",
+                "isunmanned": false
+            }
+        }
+
+
+    ]
+}

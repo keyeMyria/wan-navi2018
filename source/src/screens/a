@@ -1,5 +1,19 @@
 
 
+
+          {this.state.AidFeatures.features.map(marker => (
+            <Marker
+              title={marker.properties.place}
+              image={flagPinkImg}
+              key={marker.properties.id}
+              coordinate={marker.geometry.coordinate}
+            />
+          ))}
+
+
+
+
+
             <Switch onValueChange={() => this.onToggleEnabled()} value={this.state.enabled} />
 
 

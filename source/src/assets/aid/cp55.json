@@ -1,0 +1,54 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.926477, 32.752070]
+            },
+            "properties": {
+                "id": 88,
+                "place": "第1ＣＰ 薄塚句碑",
+                "gatetime": "",
+                "comment": "138.8km",
+                "note": "おはぎ",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.01118779182437, 32.761772486441927]
+            },
+            "properties": {
+                "id": 88,
+                "place": "第2ＣＰ 飯盛峠とんの山",
+                "gatetime": "",
+                "comment": "",
+                "note": "おはぎ",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.18798828125003, 32.788429027225519]
+            },
+            "properties": {
+                "id": 121,
+                "place": "第3ＣＰ 千々石漁港",
+                "comment": "",
+                "gatetime": "関門 15:40",
+                "note": "エイド食未定",
+                "isunmanned": false
+            }
+        }
+
+
+    ]
+}

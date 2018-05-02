@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {
   Platform,
+  Image,
   StyleSheet,
   AsyncStorage,
   View,
@@ -98,6 +99,15 @@ import MogiHimi from '../assets/geojson/茂木～日見.json';
 import Himi from '../assets/geojson/日見以降.json';
 
 
+import iconAid from '../assets/images/icon_aid.png';
+import wangan from '../assets/images/wangan.png';
+
+//import aid173 from '../assets/aid/aid173.json';
+//import cp173 from '../assets/aid/cp173.json';
+
+
+let Road217 ;
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -156,21 +166,16 @@ export default class HomeScreen extends React.Component {
       },
 
       navigateRoad: {},
-      // navigateRoad: {
-      //   coordinates: L173.features[0].geometry.coordinates.map((point, index) => {
-      //     return  {
-      //         latitude : point[1],
-      //         longitude : point[0]
-      //     }
-      //   })
-      // }
-
-
+      
+      hideAidMarkers: false,
+      hideCPMarkers: false,
+      
     };
 
     this.settingsService = SettingsService.getInstance();
     this.settingsService.setUsername(this.state.username);
   }
+
 
   //
   loadGPX(){
@@ -185,7 +190,11 @@ export default class HomeScreen extends React.Component {
     let Himi_Coordinates =  Himi.features[0].geometry.coordinates.map((point, index) => {return  {latitude : point[1],longitude : point[0]}})
 
 
-    var Road217 = E217_Coordinates.concat(ELMogi_Coordinates);
+    //let AidFeatures =  AidMap[0].title;
+    //alert(AidFeatures);
+
+
+     Road217 = E217_Coordinates.concat(ELMogi_Coordinates);
     Road217 = Road217.concat(MogiHimi_Coordinates);
     Road217 = Road217.concat(Himi_Coordinates);
 
@@ -200,19 +209,95 @@ export default class HomeScreen extends React.Component {
 
     var Road55 = S55_Coordinates.concat(Himi_Coordinates);
 
+
     this.setState({
       Road217: Road217,
       Road173: Road173,
       Road80: Road80,
       Road55: Road55,
 
+      aid217: null,
+      cp217: null,
+      aid173: null,
+      cp173: null,
+      aid80: null,
+      cp80: null,
+      aid55: null,
+      cp55: null,
+    });
+
+
+    this.setState({
       navigateRoad:  {
-        coordinates: Road217,
-      }
+        coordinates: Road173,
+      },
+
+      aidFeatures: null, //aid173.features,
+      cpFeatures: null, //cp173.features,
+
     });
 
 
   }
+
+
+
+fetchAsync  = async (filename) => {
+
+  let url = "https://tachibanawangan.com/map/geojson/" + filename + ".json";
+
+  await fetch(url)
+  .then((response) => response.json())
+  .then((responseJson) => {
+
+    switch (filename) {
+    case "aid217":
+      this.setState({aid217: responseJson.features});
+      break;
+    case "cp217":
+      this.setState({cp217: responseJson.features});
+      break;
+    case "aid173":
+      this.setState({aid173: responseJson.features});
+      this.setState({aidFeatures: responseJson.features});
+  
+      break;
+    case "cp173":
+      this.setState({cp173: responseJson.features});
+      this.setState({cpFeatures: responseJson.features});
+
+      break;
+    case "aid80":
+      this.setState({aid80: responseJson.features});
+      break;
+    case "cp80":
+      this.setState({cp80: responseJson.features});
+      break;
+    case "aid55":
+      this.setState({aid55: responseJson.features});
+      break;
+    case "cp55":
+      this.setState({cp55: responseJson.features});
+      break;
+    }
+
+
+  });
+
+};
+
+
+
+fetchAll() {
+  this.fetchAsync("aid217");
+  this.fetchAsync("cp217");
+  this.fetchAsync("aid173");
+  this.fetchAsync("cp173");
+  this.fetchAsync("aid80");
+  this.fetchAsync("cp80");
+  this.fetchAsync("aid55");
+  this.fetchAsync("cp55");
+}
 
 
   componentDidMount() {
@@ -222,6 +307,8 @@ export default class HomeScreen extends React.Component {
     });
 
     this.loadGPX();
+
+    this.fetchAll();
 
     /* dosn't work 2018.4.30
     AsyncStorage.getItem(STORAGE_KEY.isMainMenuOpen, (err, isMainMenuOpen) => {
@@ -776,7 +863,13 @@ export default class HomeScreen extends React.Component {
             strokeWidth={3}
             zIndex={0}
           />
+
+
+
+          {this.renderAidMarkers()}
+          {this.renderCPMarkers()}
           
+
           {this.renderMarkers()}
           {this.renderStopZoneMarkers()}
           {this.renderActiveGeofences()}
@@ -807,9 +900,19 @@ export default class HomeScreen extends React.Component {
 
 
 
-
         <View style={styles.mapMenu2}>
-            <Icon style={styles.mapMenu2Icon} name="ios-navigate" onPress={() => this.onClickGetCurrentPosition()} /> 
+
+            <Button info light={this.state.hideAidMarkers} style={styles.mapMenuButton} onPress={() => this.onClickAidMenu() }>
+              <Image source={ iconAid } />
+            </Button>
+
+            <Button info light={this.state.hideCPMarkers} style={styles.mapMenuButton} onPress={() => this.onClickCPMenu()}>
+              <Image source={ wangan } />
+            </Button>
+            
+            <Button light style={styles.mapMenuButton}  onPress={() => this.onClickGetCurrentPosition()}>
+              <Icon style={styles.mapMenu2Icon} name="ios-navigate" /> 
+            </Button>
         </View>
         
 
@@ -849,21 +952,21 @@ export default class HomeScreen extends React.Component {
           offsetY={ACTION_BUTTON_OFFSET_Y}
           activeOpacity={0.85}
           >
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road55)}>
+          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road55, this.state.aid55, this.state.cp55)}>
             <Title style={styles.title}>55</Title>
           </ActionButton.Item>
 
 
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road80)}>
+          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road80, this.state.aid80, this.state.cp80)}>
             <Title style={styles.title}>80</Title>
           </ActionButton.Item>
 
 
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road173)}>
+          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road173, this.state.aid173, this.state.cp173)}>
             <Title style={styles.title}>173</Title>
           </ActionButton.Item>
 
-          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road217)}>
+          <ActionButton.Item size={40} buttonColor={COLORS.light_gold} onPress={() => this.onNavigateRoadChange(this.state.Road217, this.state.aid217, this.state.cp217)}>
             <Title style={styles.title}>217</Title>
           </ActionButton.Item>
 
@@ -876,8 +979,6 @@ export default class HomeScreen extends React.Component {
           <ActionButton.Item size={40} buttonColor={COLORS.green} onPress={() => this.onClickViewServer(this)}>
             <Icon name="ios-contacts" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-
-
 
 
         </ActionButton>
@@ -915,16 +1016,91 @@ export default class HomeScreen extends React.Component {
 
 
 
-  onNavigateRoadChange(value) {
+  onNavigateRoadChange(value, aid, cp) {
     this.settingsService.playSound('ADD_GEOFENCE');
     this.setState({
-
       navigateRoad: {
         coordinates: value
       },
-      
     });
 
+
+    this.setState({
+      aidFeatures: aid, 
+      cpFeatures: cp, 
+    });
+
+  }
+
+
+  onClickAidMenu() {
+    this.settingsService.playSound('BUTTON_CLICK');
+    this.setState({
+      hideAidMarkers: !this.state.hideAidMarkers
+    });
+  }
+  onClickCPMenu() {
+    this.settingsService.playSound('BUTTON_CLICK');
+    this.setState({
+      hideCPMarkers: !this.state.hideCPMarkers
+    });
+  }
+
+
+
+
+  renderAidMarkers() {
+    if (this.state.hideAidMarkers) { return; }
+    if (!this.state.aidFeatures) { return; }
+    let id = 0;
+    let rs = [];
+
+    this.state.aidFeatures.map((marker) => {
+      rs.push((
+        <MapView.Marker
+          key={id++}
+          coordinate={{
+            latitude: marker.geometry.coordinates[1],
+            longitude: marker.geometry.coordinates[0],
+          } }
+          anchor={{x:0, y:0.1}}
+          title={marker.properties.place }
+          description={marker.properties.comment + ", " + marker.properties.note + ", " + marker.properties.gatetime}
+          image={iconAid}
+          >
+        </MapView.Marker>
+      ));
+    });
+
+    return rs;
+  }
+
+
+  renderCPMarkers() {
+    if (this.state.hideCPMarkers) { return; }
+    if (!this.state.cpFeatures) { return; }
+    let id = 0;
+    let rs = [];
+
+    this.state.cpFeatures.map((marker) => {
+      rs.push((
+        <MapView.Marker
+          key={"cp"+id++}
+          coordinate={{
+            latitude: marker.geometry.coordinates[1],
+            longitude: marker.geometry.coordinates[0],
+          } }
+          anchor={{x:0, y:0.1}}
+          title={marker.properties.place }
+          description={marker.properties.comment + ", " + marker.properties.note}
+          image={wangan}
+          opacity={1.0}
+          >
+        </MapView.Marker>
+      ));
+    });
+
+    return rs;
   }
 
 
@@ -1197,6 +1373,10 @@ var styles = StyleSheet.create({
   },
 
 
+  mapIcon: {
+    width: 10,
+    height: 10
+  },
 
   icon: {
     color: '#fff'

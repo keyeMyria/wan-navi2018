@@ -1,0 +1,123 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.84947204589847, 32.752632552131693]
+            },
+            "properties": {
+                "id": 116,
+                "place": "第1ＣＰ 稲佐山",
+                "comment": "7.1ｋｍ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.79775905609134, 32.801452195252914]
+            },
+            "properties": {
+                "id": 4,
+                "place": "第2ＣＰ あぐりの丘",
+                "comment": "25.2ｋｍ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.74151849746707, 32.579130236535867]
+            },
+            "properties": {
+                "id": 112,
+                "place": "第3ＣＰ 権現山山頂展望台",
+                "comment": "70.1km",
+                "gatetime": "",
+                "note": "ミネストローネ",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.77568512025755, 32.551151391848975]
+            },
+            "properties": {
+                "id": 83,
+                "place": "第4ＣＰ 椛島灯台",
+                "comment": "80.7km 無人エイド",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.91438150405887, 32.701840569670857]
+            },
+            "properties": {
+                "id": 86,
+                "place": "第5ＣＰ 茂木ぶらぶら",
+                "comment": "115.4km ドロップバッグ預かり",
+                "gatetime": "",
+                "note": "角煮めし、ごはん",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.01118779182437, 32.761772486441927]
+            },
+            "properties": {
+                "id": 88,
+                "place": "第6ＣＰ 飯盛峠とんの山",
+                "gatetime": "",
+                "comment": "138.8km",
+                "note": "おはぎ",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.18798828125003, 32.788429027225519]
+            },
+            "properties": {
+                "id": 121,
+                "place": "第7ＣＰ 千々石漁港",
+                "comment": "163.7km",
+                "gatetime": "関門 15:40",
+                "note": "エイド食未定",
+                "isunmanned": false
+            }
+        }
+
+
+    ]
+}

@@ -1,0 +1,157 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.8721649,32.7442397]
+            },
+            "properties": {
+                "id": 87,
+                "place": "スタート",
+                "comment": "0km",
+                "gatetime": "",
+                "note": "水辺の森公園",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.85616683959964, 32.718121524035546]
+            },
+            "properties": {
+                "id": 71,
+                "place": "女神大橋エイド",
+                "comment": "うどん",
+                "gatetime": "",
+                "note": "11ｋｍ",
+                "isunmanned": false
+            }
+        },
+
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [129.94253396987918, 32.758849253123351]
+            },
+            "properties": {
+                "id": 6,
+                "place": "日見公園",
+                "gatetime": "関門 10:30",
+                "comment": "37.2 km",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.01118779182437, 32.761772486441927]
+            },
+            "properties": {
+                "id": 88,
+                "place": "飯盛峠とんの山",
+                "comment": "46km",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.04675388336184, 32.785939617338457]
+            },
+            "properties": {
+                "id": 105,
+                "place": "飯盛経塚　げんき君",
+                "comment": "53.2km",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.0742374, 32.7903267]
+            },
+            "properties": {
+                "id": 105,
+                "place": "有喜 無人エイド",
+                "comment": " km ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.18798828125003, 32.788429027225519]
+            },
+            "properties": {
+                "id": 121,
+                "place": "千々石 集会所",
+                "comment": " km",
+                "gatetime": "関門 15:40",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.2015246, 32.7585489]
+            },
+            "properties": {
+                "id": 105,
+                "place": "富津 無人エイド",
+                "comment": " km ",
+                "gatetime": "あと5km",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.201424, 32.719205]
+            },
+            "properties": {
+                "id": 90,
+                "place": "ゴール",
+                "comment": null,
+                "gatetime": "関門 17:00",
+                "note": null,
+                "isunmanned": false
+            }
+        }
+    ]
+}
