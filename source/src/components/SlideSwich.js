@@ -12,6 +12,7 @@ import {
 import SettingsService from '../lib/SettingsService';
 import {COLORS, STORAGE_KEY, SOUNDS} from '../lib/config';
 
+import prompt from 'react-native-prompt-android';
 
 //使用例：<SlideSwich onValueChange={(enabled) => this.onToggleEnabled(enabled)} value={this.state.enabled}/>
 
@@ -21,7 +22,9 @@ export default class SlideSwich extends React.Component {
     super(props);
     this.state = {
       isSwichOn: props.value,
+      password: props.password,
     };
+
     //settingsService
     this.settingsService = SettingsService.getInstance();
   }
@@ -62,7 +65,11 @@ export default class SlideSwich extends React.Component {
           this.setState({isSwichOn: !this.state.isSwichOn});
         }, style: 'cancel'},
         {text: 'はい', onPress: () => {
-          this.onToggleEnabled();
+          if (isSwichOn) {
+            this.getUsername();
+          }else{
+            this.onToggleEnabled();
+          }
         }
       },],{ cancelable: false }
     )
@@ -70,6 +77,43 @@ export default class SlideSwich extends React.Component {
   }
 
 
+
+  getUsername() {
+
+      // Android
+      prompt(
+        'パスフレーズを入力',
+        'パスフレーズを入力してください',
+        [
+          {text: 'Cancel', onPress: () => {
+            this.setState({isSwichOn: !this.state.isSwichOn});
+            alert("パスフレーズを入力してください");
+          }, style: 'cancel'},
+          {text: 'OK', onPress: password => this.inputPassword(password) },
+        ],
+        {
+          type: 'plain-text',
+          cancelable: false,
+          placeholder: 'placeholder'
+        }
+      )
+  }  
+
+ 
+  inputPassword(newPassword) {
+
+    if (newPassword === 'わんなび'){
+      //alert("OK");
+      this.onToggleEnabled();
+    }else{
+      alert("パスフレーズを入力してください");
+      this.setState({isSwichOn: !this.state.isSwichOn});
+    }
+
+  }
+
+
+  
 　//親へイベントコール
   onToggleEnabled(value) {
     this.props.onValueChange(this.state.isSwichOn);

@@ -1,6 +1,29 @@
 
 
 
+
+      <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+      > 
+      <TextInput
+      placeholder="Email"
+      style={styles.input}
+      />
+              <Button
+          onPress={this.onPressLearnMore}
+          title="Learn More"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+
+      </KeyboardAvoidingView>
+
+
+
+
+
+
           {this.state.AidFeatures.features.map(marker => (
             <Marker
               title={marker.properties.place}

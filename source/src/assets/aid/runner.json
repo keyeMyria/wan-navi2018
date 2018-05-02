@@ -1,0 +1,85 @@
+[{
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [129.87561312784612, 32.75163641112082]
+    },
+    "properties": {
+        "Id": 34452,
+        "KeisokuDate": "2018-05-02T17:21:15.31",
+        "Imei": "4D97C729-69B3-4FDB-9A94-F977CA67ECED",
+        "CreatedDate": "2018-05-02T17:21:46.05",
+        "Vol": null,
+        "Note": null
+    }
+}, {
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [139.64714723735651, 35.8697164276263]
+    },
+    "properties": {
+        "Id": 34460,
+        "KeisokuDate": "2018-05-02T21:15:52.313",
+        "Imei": "5E762C0C-6DFE-4481-82FD-1157F5D426C6",
+        "CreatedDate": "2018-05-02T21:15:52.747",
+        "Vol": null,
+        "Note": null
+    }
+}, {
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-122.04150942544329, 37.393936640920721]
+    },
+    "properties": {
+        "Id": 34450,
+        "KeisokuDate": "2018-05-02T03:05:04.827",
+        "Imei": "6EB19C3E-C7A8-4BC3-B825-A11429AF3E08",
+        "CreatedDate": "2018-05-02T03:05:05.017",
+        "Vol": null,
+        "Note": null
+    }
+}, {
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [129.8648966384028, 32.761307872875911]
+    },
+    "properties": {
+        "Id": 33918,
+        "KeisokuDate": "2018-05-01T06:45:32.197",
+        "Imei": "781ECFEE-717A-4661-ADFC-90B9AFE8522B",
+        "CreatedDate": "2018-05-01T06:46:12.257",
+        "Vol": null,
+        "Note": null
+    }
+}, {
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [130.37266033991858, 33.58436145854332]
+    },
+    "properties": {
+        "Id": 33950,
+        "KeisokuDate": "2018-05-01T08:54:05.867",
+        "Imei": "A09BD392-620C-4D88-BCBD-05B011792CD2",
+        "CreatedDate": "2018-05-01T08:54:07.22",
+        "Vol": null,
+        "Note": null
+    }
+}, {
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [129.86514407962892, 32.761704457935316]
+    },
+    "properties": {
+        "Id": 34446,
+        "KeisokuDate": "2018-05-01T13:13:03",
+        "Imei": "D887B2F6-B1C9-439C-A7FC-21A2FEC83615",
+        "CreatedDate": "2018-05-01T13:13:03.753",
+        "Vol": null,
+        "Note": null
+    }
+}]

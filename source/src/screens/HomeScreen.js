@@ -8,7 +8,9 @@ import {
   View,
   AppState,
   Alert,
-  Linking,
+  Linking, 
+  KeyboardAvoidingView,
+  TextInput
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
@@ -63,6 +65,10 @@ const TRACKER_HOST = 'https://wan-navi.azurewebsites.net/api/RunnerSave/';
 
 const TRACKER_SERVER_HOST = 'https://sugasaki.github.io/wan-navi2/wan-navi2/';
 
+const RUNNER_TRACKER_HOST = 'https://wan-navi.azurewebsites.net/api/RunnerLog/';
+
+const PASSOWRD_HOST = 'https://tachibanawangan.com/map/geojson/password.json';
+
 
 const STATIONARY_REGION_FILL_COLOR = "rgba(200,0,0,0.2)"
 const STATIONARY_REGION_STROKE_COLOR = "rgba(200,0,0,0.2)"
@@ -101,6 +107,12 @@ import Himi from '../assets/geojson/日見以降.json';
 
 import iconAid from '../assets/images/icon_aid.png';
 import wangan from '../assets/images/wangan.png';
+
+import runner from '../assets/images/runner.png';
+import runner2 from '../assets/images/runner2.png';
+
+
+
 
 //import aid173 from '../assets/aid/aid173.json';
 //import cp173 from '../assets/aid/cp173.json';
@@ -169,7 +181,10 @@ export default class HomeScreen extends React.Component {
       
       hideAidMarkers: false,
       hideCPMarkers: false,
+      hideRunnerAllMarkers: true,
+
       
+      runnerAll: null,
     };
 
     this.settingsService = SettingsService.getInstance();
@@ -270,6 +285,30 @@ fetchAsync  = async (filename) => {
 };
 
 
+fetcｈRunnerAsync  = async (filename) => {
+
+  this.setState({ isRunnerSyncing: true  });
+
+  await fetch(RUNNER_TRACKER_HOST)
+  .then((response) => response.json())
+  .then((responseJson) => {
+    this.setState({runnerAll: responseJson.features});
+    this.setState({ isRunnerSyncing: false  });
+  });
+
+};
+
+
+fetcｈPassowordAsync  = async () => {
+
+  await fetch(PASSOWRD_HOST)
+  .then((response) => response.json())
+  .then((responseJson) => {
+    this.setState({ nowPassword: responseJson.password});
+    //alert(responseJson.password);
+  });
+
+};
 
 fetchAll() {
 
@@ -304,6 +343,9 @@ fetchAll() {
     this.loadGPX();
 
     this.fetchAll();
+
+    this.fetcｈPassowordAsync();
+
 
     /* dosn't work 2018.4.30
     AsyncStorage.getItem(STORAGE_KEY.isMainMenuOpen, (err, isMainMenuOpen) => {
@@ -875,6 +917,7 @@ fetchAll() {
           {this.renderAidMarkers()}
           {this.renderCPMarkers()}
           
+          {this.renderRunnerAllMarkers()}
 
           {this.renderMarkers()}
           {this.renderStopZoneMarkers()}
@@ -887,9 +930,8 @@ fetchAll() {
         <View style={styles.mapMenu}>
           <View style={styles.startBorder}>
             <Text style={styles.startBorderText}>出走開始・停止</Text>
-            <SlideSwich onValueChange={(enabled) => this.onToggleEnabled(enabled)} value={this.state.enabled}/>
+            <SlideSwich onValueChange={(enabled) => this.onToggleEnabled(enabled)} value={this.state.enabled} password={this.state.nowPassword}/>
          </View>
-
         </View>
 
 
@@ -906,6 +948,11 @@ fetchAll() {
             <Image source={ wangan } style={styles.mapMenuButtonIcon} />
           </Button>
           
+          <Button light={this.state.hideRunnerAllMarkers} style={styles.mapMenuButton} onPress={() => this.onClickRunnerAllMenu()}>
+            {!this.state.isRunnerSyncing ? (<Image source={ runner2 } style={styles.mapMenuButtonIcon} />) : (<Spinner color="#000" size="small" />)}
+          </Button>
+          
+
         </View>
         
 
@@ -1042,7 +1089,20 @@ fetchAll() {
   }
 
 
+  onClickRunnerAllMenu() {
+    this.settingsService.playSound('BUTTON_CLICK');
 
+    this.setState({
+      hideRunnerAllMarkers: !this.state.hideRunnerAllMarkers,
+    });
+
+    //
+    if (this.state.hideRunnerAllMarkers) {
+      this.fetcｈRunnerAsync();
+    }
+
+  }
+  
 
   renderAidMarkers() {
     if (this.state.hideAidMarkers) { return; }
@@ -1099,6 +1159,33 @@ fetchAll() {
   }
 
 
+  renderRunnerAllMarkers() {
+    if (this.state.hideRunnerAllMarkers) { return; }
+    if (!this.state.runnerAll) { return; }
+    let id = 0;
+    let rs = [];
+
+    this.state.runnerAll.map((marker) => {
+      rs.push((
+        <MapView.Marker
+          key={id++}
+          coordinate={{
+            latitude: marker.geometry.coordinates[1],
+            longitude: marker.geometry.coordinates[0],
+          } }
+          anchor={{x:0, y:0.1}}
+          title={marker.properties.name }
+          description={marker.properties.comment + ", " + marker.properties.note}
+          image={runner}
+          >
+        </MapView.Marker>
+      ));
+    });
+
+    return rs;
+  }
+
+  
 
 
   getMotionActivityIcon() {
@@ -1400,6 +1487,13 @@ var styles = StyleSheet.create({
     fontSize: 24,
     color: '#fff'
   },
+
+  actionButtonIcon2: {
+    fontSize: 24,
+    color: '#000'
+  },
+
+
   status: {
     fontSize: 12
   },
