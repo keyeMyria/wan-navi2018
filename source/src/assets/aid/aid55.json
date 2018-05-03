@@ -44,7 +44,7 @@
             "properties": {
                 "id": 88,
                 "place": "飯盛峠とんの山",
-                "comment": "138.8km",
+                "comment": "",
                 "gatetime": "",
                 "note": "",
                 "isunmanned": false
@@ -60,7 +60,23 @@
             "properties": {
                 "id": 105,
                 "place": "飯盛経塚　げんき君",
-                "comment": "146km",
+                "comment": "",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.137251, 32.792046]
+            },
+            "properties": {
+                "id": 105,
+                "place": "唐子温泉前 エイド",
+                "comment": "",
                 "gatetime": "",
                 "note": "",
                 "isunmanned": false
@@ -77,7 +93,7 @@
             "properties": {
                 "id": 105,
                 "place": "有喜 無人エイド",
-                "comment": "150km ",
+                "comment": "",
                 "gatetime": "",
                 "note": "",
                 "isunmanned": false
@@ -94,7 +110,7 @@
             "properties": {
                 "id": 121,
                 "place": "千々石 集会所",
-                "comment": "163.7km",
+                "comment": "",
                 "gatetime": "関門 15:40",
                 "note": "",
                 "isunmanned": false
@@ -111,7 +127,7 @@
             "properties": {
                 "id": 105,
                 "place": "富津 無人エイド",
-                "comment": "168.2km ",
+                "comment": "",
                 "gatetime": "あと5km",
                 "note": "",
                 "isunmanned": false

@@ -66,7 +66,7 @@ export default class SlideSwich extends React.Component {
         }, style: 'cancel'},
         {text: 'はい', onPress: () => {
           if (isSwichOn) {
-            this.getUsername();
+            this.confirmRootDelete();
           }else{
             this.onToggleEnabled();
           }
@@ -75,6 +75,27 @@ export default class SlideSwich extends React.Component {
     )
 
   }
+
+
+
+
+  confirmRootDelete() {
+
+    //確認Alertを表示。OKが押されたらonToggleEnabledを呼ぶ
+    Alert.alert( "", "今表示されているルートを削除しますか？",
+      [
+          {text: 'いいえ', onPress: () => {
+            this.getUsername();
+          }, style: 'cancel'},
+          {text: 'はい', onPress: () => {
+            this.props.onClearRoot();
+            this.getUsername();
+          }
+        },],{ cancelable: false }
+      )
+
+    }
+
 
 
 
@@ -87,7 +108,7 @@ export default class SlideSwich extends React.Component {
         [
           {text: 'Cancel', onPress: () => {
             this.setState({isSwichOn: !this.state.isSwichOn});
-            alert("パスフレーズを入力してください");
+            alert("パスフレーズを入力してください。ヒント：湾岸なび");
           }, style: 'cancel'},
           {text: 'OK', onPress: password => this.inputPassword(password) },
         ],
@@ -99,6 +120,7 @@ export default class SlideSwich extends React.Component {
       )
   }  
 
+
  
   inputPassword(newPassword) {
 
@@ -106,7 +128,7 @@ export default class SlideSwich extends React.Component {
       //alert("OK");
       this.onToggleEnabled();
     }else{
-      alert("パスフレーズを入力してください");
+      alert("パスフレーズを入力してください。ヒント：湾岸なび");
       this.setState({isSwichOn: !this.state.isSwichOn});
     }
 
@@ -114,6 +136,9 @@ export default class SlideSwich extends React.Component {
 
 
   
+
+
+
 　//親へイベントコール
   onToggleEnabled(value) {
     this.props.onValueChange(this.state.isSwichOn);

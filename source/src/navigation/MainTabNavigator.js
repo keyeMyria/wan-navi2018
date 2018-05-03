@@ -1,8 +1,8 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
-//import { Icon } from 'native-base';
-import Icon from 'react-native-ionicons'
+import { Icon } from 'native-base';
+//import Icon from 'react-native-ionicons'
 
 import Colors from '../constants/Colors';
 

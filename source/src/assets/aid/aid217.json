@@ -309,6 +309,22 @@
             }
         },
 
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [130.137251, 32.792046]
+            },
+            "properties": {
+                "id": 105,
+                "place": "唐子温泉前 エイド",
+                "comment": "150km ",
+                "gatetime": "",
+                "note": "",
+                "isunmanned": false
+            }
+        },
+
 
         {
             "type": "Feature",

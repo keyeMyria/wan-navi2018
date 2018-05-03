@@ -216,8 +216,31 @@ export default class SettingsScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
 
+        <Header style={styles.header}>
+          <Body>
+            <Title style={styles.title}>設定</Title>
+          </Body>
+        </Header>
+
+
         <Content style={styles.content}>
           <Form>
+
+
+            <FormItem style={styles.headerItem}>
+              <Text>あなたの名前</Text>
+            </FormItem>
+            <Input style={styles.formItem} placeholder="ニックネーム" value={this.state.username} onChangeText={this.onChangeNickname.bind(this)} />
+
+
+            <FormItem style={styles.headerItem}>
+              <Text>公開用アドレス</Text>
+            </FormItem>
+            <Input style={styles.formItem} placeholder="" value={this.state.public_url}  />
+
+
+
+
             <FormItem style={styles.headerItem}>
               <Text>省電力</Text>
             </FormItem>
@@ -227,6 +250,7 @@ export default class SettingsScreen extends React.Component {
             <Text style={styles.textinfo}>GPS精度: -1: GPS + Wifi + Cellular、0: Wifi + Cellular</Text>
             <Text style={styles.textinfo}>※ GPS取得間隔は速度が上がると自動で微調整されます。（値が上下します。）</Text>
             <Text style={styles.textinfo}>※ まとめて送信はGPS取得数が設定値以上に溜まったら送信します。</Text>
+
 
 
             <FormItem style={styles.headerItem}>
@@ -254,18 +278,12 @@ export default class SettingsScreen extends React.Component {
             </Text>
 
 
-            <FormItem style={styles.headerItem}>
-              <Text>あなたの情報</Text>
-            </FormItem>
-
-              <Input placeholder="ニックネーム" value={this.state.username} onChangeText={this.onChangeNickname.bind(this)} />
-
-
 
             <FormItem style={styles.headerItem}>
-              <Text>公開用アドレス</Text>
+              <Text>通信</Text>
             </FormItem>
-            <Input placeholder="" value={this.state.public_url}  />
+            {this.renderPluginSettings('http')}
+
 
 
           </Form>

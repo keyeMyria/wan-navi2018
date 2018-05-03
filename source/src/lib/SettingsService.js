@@ -76,7 +76,7 @@ const PLUGIN_SETTINGS = {
 
 
     // HTTP & Persistence
-    {field: '', name:'url', group: 'http', inputType: 'text', dataType: 'string', defaultValue: 'http://your.server.com/endpoint'},
+  //  {field: '', name:'url', group: 'http', inputType: 'text', dataType: 'string', defaultValue: 'http://your.server.com/endpoint'},
     {field: '自動送信', name: 'autoSync', group: 'http', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: true},
     {field: 'まとめて送信', name: 'batchSync', group: 'http', dataType: 'boolean', inputType: 'toggle', values: [true, false], defaultValue: false},
     {field: 'まとめて送信の1度の送信数', name: 'autoSyncThreshold', group: 'http', dataType: 'integer', inputType: 'select', values: [0, 5, 10, 25, 50, 100], defaultValue: 5},

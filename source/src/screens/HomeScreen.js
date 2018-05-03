@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -246,7 +245,7 @@ export default class HomeScreen extends React.Component {
 
 fetchAsync  = async (filename) => {
 
-  let url = "https://tachibanawangan.com/map/geojson/" + filename + ".json";
+  let url = "https://tachibanawangan.com/map/geojson/" + filename + ".json?a=" + Date.now();
 
   await fetch(url)
   .then((response) => response.json())
@@ -289,7 +288,7 @@ fetcｈRunnerAsync  = async (filename) => {
 
   this.setState({ isRunnerSyncing: true  });
 
-  await fetch(RUNNER_TRACKER_HOST)
+  await fetch(RUNNER_TRACKER_HOST + "?a=" + Date.now())
   .then((response) => response.json())
   .then((responseJson) => {
     this.setState({runnerAll: responseJson.features});
@@ -667,7 +666,6 @@ fetchAll() {
 
 
 
-
   /**
   * get current position button handler
   */
@@ -930,17 +928,34 @@ fetchAll() {
         <View style={styles.mapMenu}>
           <View style={styles.startBorder}>
             <Text style={styles.startBorderText}>出走開始・停止</Text>
-            <SlideSwich onValueChange={(enabled) => this.onToggleEnabled(enabled)} value={this.state.enabled} password={this.state.nowPassword}/>
+            <SlideSwich onValueChange={(enabled) => this.onToggleEnabled(enabled)} value={this.state.enabled} password={this.state.nowPassword} onClearRoot={() => this.clearMarkers()} />
          </View>
         </View>
 
+
+
+        <View style={styles.mapMenu3}>
+
+          <Button iconLeft info light={this.state.settings.hideMarkers} small style={styles.mapMenuButton2} onPress={() => this.onClickMapMenu('hideMarkers') }>
+            <Icon name="ios-pin" style={{ fontSize: 15}} />
+          </Button>
+
+          <Button iconLeft info light={this.state.settings.hidePolyline} small style={styles.mapMenuButton2} onPress={() => this.onClickMapMenu('hidePolyline')}>
+            <Icon name="ios-pulse" style={{ fontSize: 15}} />
+          </Button>
+
+          <Button iconLeft info light={this.state.settings.hideGeofenceHits} small style={styles.mapMenuButton2} onPress={() => this.onClickMapMenu('hideGeofenceHits')}>
+            <Icon name="ios-radio-button-off" style={{ fontSize: 15}} />
+          </Button>
+
+        </View>
 
 
         <View style={styles.mapMenu2}>
 
           <Icon name="ios-refresh-circle-outline" onPress={() => this.fetchAll() } />
 
-          <Button info light={this.state.hideAidMarkers} style={styles.mapMenuButton} onPress={() => this.onClickAidMenu() }>
+          <Button info light={this.state.hideAidMarkers} small style={styles.mapMenuButton} onPress={() => this.onClickAidMenu() }>
             <Image source={ iconAid } style={styles.mapMenuButtonIcon} />
           </Button>
 
@@ -1539,10 +1554,26 @@ var styles = StyleSheet.create({
     flexDirection: 'row'
   },
 
+
+  mapClereButton: {
+    left: 120,
+    position:'absolute',
+    top: ACTION_BUTTON_OFFSET_Y,
+    flexDirection: 'row'
+  },
+
+
   mapMenu2: {
     position:'absolute',
     right: 15,
     bottom: 60,
+    flexDirection: 'row'
+  },
+
+  mapMenu3: {
+    position:'absolute',
+    right: 15,
+    bottom: 100,
     flexDirection: 'row'
   },
 
@@ -1551,10 +1582,22 @@ var styles = StyleSheet.create({
   },
 
 
+
+
+
   mapMenuButton: {
     width: 30,
     height: 30,
+    paddingLeft: 0,
+    paddingRight: 0,
     marginLeft: 10
+  },
+
+  mapMenuButton2: {
+    width: 30,
+    height: 30,
+    marginLeft: 5,
+    padding: 0,
   },
 
   mapMenuButtonIcon: {
